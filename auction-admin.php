@@ -2,12 +2,12 @@
 /**
  * Add to product type drop down.
  */
-function add_auction_product( $types ){
+function wauc_add_auction_product( $types ){
     // Key should be exactly the same as in the class
     $types[ 'auction' ] = __( 'Auction Product' );
     return $types;
 }
-add_filter( 'product_type_selector', 'add_auction_product' );
+add_filter( 'product_type_selector', 'wauc_add_auction_product' );
 
 /**
  * Show pricing fields for simple_rental product.
@@ -27,7 +27,7 @@ add_action( 'admin_footer', 'auction_custom_js' );
 /**
  * Add a custom product tab.
  */
-function custom_product_tabs( $tabs) {
+function wauc_custom_product_tabs( $tabs) {
     $tabs['auction'] = array(
         'label'		=> __( 'Auction', 'wauc' ),
         'target'	=> 'auction_options',
@@ -35,12 +35,12 @@ function custom_product_tabs( $tabs) {
     );
     return $tabs;
 }
-add_filter( 'woocommerce_product_data_tabs', 'custom_product_tabs' );
+add_filter( 'woocommerce_product_data_tabs', 'wauc_custom_product_tabs' );
 
 /**
  * Contents of the auction options product tab.
  */
-function auction_options_product_tab_content() {
+function wauc_auction_options_product_tab_content() {
     global $post;
     ?><div id='auction_options' class='panel woocommerce_options_panel'><?php
     ?><div class='options_group'><?php
@@ -121,23 +121,23 @@ function auction_options_product_tab_content() {
 
     </div><?php
 }
-add_action( 'woocommerce_product_data_panels', 'auction_options_product_tab_content' );
+add_action( 'woocommerce_product_data_panels', 'wauc_auction_options_product_tab_content' );
 
 
 /**
  * Save the custom fields.
  */
-function save_auction_option_field( $post_id ) {
+function wauc_save_auction_option_field( $post_id ) {
     if( isset( $_POST['wauc_product_condition']) ) {
-        update_post_meta( $post_id, 'wauc_product_condition', $_POST['wauc_product_condition'] );
+        update_post_meta( $post_id, 'wauc_product_condition', esc_attr( $_POST['wauc_product_condition'] ) );
     }
-    if( isset( $_POST['wauc_base_price']) ) {
+    if( isset( $_POST['wauc_base_price'] ) && is_numeric( $_POST['wauc_base_price'] ) ) {
         update_post_meta( $post_id, 'wauc_base_price', $_POST['wauc_base_price'] );
     }
-    if( isset( $_POST['wauc_bid_increment']) ) {
+    if( isset( $_POST['wauc_bid_increment']) && is_numeric( $_POST['wauc_base_price'] ) ) {
         update_post_meta( $post_id, 'wauc_bid_increment', $_POST['wauc_bid_increment'] );
     }
-    if( isset( $_POST['wauc_auction_start']) ) {
+    if( isset( $_POST['wauc_auction_start'] ) ) {
         update_post_meta( $post_id, 'wauc_auction_start', strtotime( $_POST['wauc_auction_start'] ) );
     }
     if( isset( $_POST['wauc_auction_end']) ) {
@@ -148,21 +148,21 @@ function save_auction_option_field( $post_id ) {
     } else {
         update_post_meta( $post_id, 'wauc_auction_role_enabled', 'false' );
     }
-    if( isset( $_POST['wauc_auction_roles']) ) {
-        update_post_meta( $post_id, 'wauc_auction_roles', $_POST['wauc_auction_roles'] );
+    if( isset( $_POST['wauc_auction_roles'])  ) {
+        update_post_meta( $post_id, 'wauc_auction_roles', filter_var( $_POST['wauc_auction_roles'] , FILTER_SANITIZE_STRING ) );
     }
 }
-add_action( 'woocommerce_process_product_meta_auction', 'save_auction_option_field'  );
+add_action( 'woocommerce_process_product_meta_auction', 'wauc_save_auction_option_field'  );
 
 /**
  * Hide Attributes data panel.
  */
-function hide_attributes_data_panel( $tabs) {
+function wauc_hide_attributes_data_panel( $tabs) {
     $tabs['attribute']['class'][] = 'hide_if_auction';
     //$tabs['general']['class'][] = 'show_if_auction';
     return $tabs;
 }
-add_filter( 'woocommerce_product_data_tabs', 'hide_attributes_data_panel' );
+add_filter( 'woocommerce_product_data_tabs', 'wauc_hide_attributes_data_panel' );
 
 
 /**

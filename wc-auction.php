@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Woo Auction
+ * Plugin Name: WC Auction
  * Plugin URI:
  * Description: A plugin to add auction feature with options to work with woocommerce.
- * Version: 0.1
+ * Version: 1.0
  * Author: Mithu A Quayium
  * Author URI: http://cybercraftit.com/
  * Requires at least: 4.0
