@@ -65,6 +65,7 @@ add_action( 'wp_ajax_wauc_show_auction_modal', function(){
                             },
                             function (data) {
                                 tinyMCE.activeEditor.selection.setContent(data);
+                                $('.modal-content .close').click();
                             }
                         );
                         return false;
@@ -108,8 +109,17 @@ add_action( 'wp_ajax_wauc_show_auction_modal', function(){
 });
 
 add_action( 'wp_ajax_wauc_insert_widget',function () {
+
+    /*$_POST['data']*/
+    if( !is_string( $_POST['data'] ) ) {
+        return;
+    }
+
     parse_str( $_POST['data'], $data );
-    if( isset($data['widget-wauc_auction_widget']) && !empty( $data['widget-wauc_auction_widget'] ) ) {
+
+    if( !is_array( $data ) ) return;
+
+    if( isset($data['widget-wauc_auction_widget']) && !empty( $data['widget-wauc_auction_widget'] ) && is_array( $data['widget-wauc_auction_widget'] ) ) {
         $instance = $data['widget-wauc_auction_widget'];
 
         $ins = array();
@@ -145,7 +155,14 @@ class WAUC_Ajax_Action {
     }
 
     public static function get_log_list() {
-        if( !isset( $_POST['product_id']) || !is_numeric( $_POST['product_id'] ) ) {
+
+        if( !isset( $_POST['product_id'])
+            || !is_numeric( $_POST['product_id'] )
+            || !isset( $_POST['offset'] )
+            || !is_numeric( $_POST['offset'] )
+            || !isset( $_POST['per_page'] )
+            || !is_numeric( $_POST['per_page'] )
+        ) {
             echo json_encode( array(
                 'result' => 'error',
                 'msg' => 'Data could not be loaded !'
@@ -161,6 +178,14 @@ class WAUC_Ajax_Action {
                     'result' => 'success',
                     'msg' => 'Data loaded successfully !',
                     'data' => $data
+                )
+            );
+        } else {
+            echo json_encode(
+                array(
+                    'result' => 'error',
+                    'msg' => 'Data could not be loaded !',
+                    'data' => ''
                 )
             );
         }

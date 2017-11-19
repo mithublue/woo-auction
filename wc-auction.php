@@ -155,7 +155,7 @@ class WAUC_Init{
     public function wp_enqueue_scripts_styles() {
         wp_register_style( 'wauc-bs-css', WAUC_ASSET_URL.'/css/wrapper-bs.min.css' );
 
-        wp_register_script( 'wauc-vue', WAUC_ASSET_URL.'/js/vue.js', array(), false, true );
+        wp_register_script( 'wauc-vue', WAUC_ASSET_URL.'/js/vue2.js', array(), false, true );
         wp_enqueue_script( 'wauc-scipt', WAUC_ASSET_URL.'/js/script.js', array( 'jquery' ), false, true );
     }
 }

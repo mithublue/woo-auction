@@ -85,7 +85,8 @@ function wauc_auction_options_product_tab_content() {
         'description'	=> __( 'Set the start date of auction', 'wauc' ),
         'type' 			=> 'text',
         'class'         => 'datepicker',
-        'value'         => date('Y-m-d H:i',get_post_meta($post->ID,'wauc_auction_start',true))
+        'default'       => time(),
+        'value'         => date('Y-m-d H:i', get_post_meta($post->ID,'wauc_auction_start',true) ? get_post_meta($post->ID,'wauc_auction_start',true) : time() )
     ) );
     woocommerce_wp_text_input( array(
         'id'			=> 'wauc_auction_end',
@@ -94,7 +95,7 @@ function wauc_auction_options_product_tab_content() {
         'description'	=> __( 'Set the end date of auction', 'wauc' ),
         'type' 			=> 'text',
         'class'         => 'datepicker',
-        'value'         => date('Y-m-d H:i',get_post_meta($post->ID,'wauc_auction_end',true))
+        'value'         => date('Y-m-d H:i', get_post_meta($post->ID,'wauc_auction_end',true ) ? get_post_meta($post->ID,'wauc_auction_end',true ) : time() )
     ) );
 
     woocommerce_wp_checkbox( array( 'id' => 'wauc_auction_role_enabled',
@@ -270,11 +271,12 @@ class WAUC_Auction_Log {
 
                                 if ( serial == 'prev' ) {
                                     if( auction_history.page_number > 0 ) {
-                                        auction_history.page_number--;
+                                        --auction_history.page_number;
                                     }
-                                } else {
-                                    auction_history.page_number++;
+                                } else if ( serial == 'next' ){
+                                    ++auction_history.page_number;
                                 }
+                                //test
 
                                 var offset = auction_history.page_number * auction_history.per_page;
 
@@ -287,13 +289,13 @@ class WAUC_Auction_Log {
                                         product_id : '<?php echo $post->ID; ?>'
                                     },
                                     function (data) {
-                                        if( typeof data == 'string' ) {
-                                            auction_history.page_number--;
-                                            return;
-                                        };
                                         var data = JSON.parse(data);
+
                                         if( data.result == 'success' ) {
                                             auction_history.logs = data.data;
+                                        } else {
+                                            auction_history.page_number--;
+                                            return;
                                         }
                                     }
                                 )
