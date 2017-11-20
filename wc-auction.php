@@ -40,21 +40,6 @@ class WAUC_Init{
         //styles
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts_styles' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts_styles' ) );
-
-        //session
-        add_action( 'init', array( $this, 'set_session' ) );
-        add_action('wp_logout', array( $this, 'session_end' ) );
-        add_action('wp_login', array( $this, 'session_end' ) );
-    }
-
-    public function set_session() {
-        if(!session_id()) {
-            session_start();
-        }
-    }
-
-    public function session_end() {
-        session_destroy();
     }
 
     /**

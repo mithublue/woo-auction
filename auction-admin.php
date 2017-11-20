@@ -136,7 +136,7 @@ function wauc_save_auction_option_field( $post_id ) {
         update_post_meta( $post_id, 'wauc_base_price', $_POST['wauc_base_price'] );
     }
     if( isset( $_POST['wauc_bid_increment']) && is_numeric( $_POST['wauc_base_price'] ) ) {
-        update_post_meta( $post_id, 'wauc_bid_increment', $_POST['wauc_bid_increment'] );
+        update_post_meta( $post_id, 'wauc_bid_increment', (int)$_POST['wauc_bid_increment'] );
     }
     if( isset( $_POST['wauc_auction_start'] ) ) {
         update_post_meta( $post_id, 'wauc_auction_start', strtotime( $_POST['wauc_auction_start'] ) );

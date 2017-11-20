@@ -30,8 +30,13 @@ class WAUC_Auction_Action {
         add_action( 'wp_loaded', array( $this, 'process_bid_request' ) );
     }
 
+
+
+
     public function auction_section() {
+        session_start();
         global $post, $_SESSION;
+
         $product = wc_get_product( $post );
         if( !WAUC_Functions::is_auction_product( $product ) ) return;
 
@@ -107,7 +112,7 @@ class WAUC_Auction_Action {
      * bid request of user
      */
     public function process_bid_request() {
-
+        session_start();
         if( !isset( $_GET['wauc_bid'] ) ) return;
         if( !isset( $_POST['bidding_price'] ) ) return;
         if( !isset( $_POST['product_id'] ) || !is_numeric( $_POST['product_id'] ) ) return;

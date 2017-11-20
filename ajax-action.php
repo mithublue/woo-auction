@@ -170,7 +170,7 @@ class WAUC_Ajax_Action {
             exit;
         };
 
-        $data = WAUC_Functions::get_log_list( $_POST['product_id'], $_POST['offset'],$_POST['per_page'] );
+        $data = WAUC_Functions::get_log_list( (int)$_POST['product_id'], (int)$_POST['offset'], (int)$_POST['per_page'] );
 
         if( !empty( $data ) ) {
             echo json_encode(
