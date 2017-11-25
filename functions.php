@@ -309,6 +309,50 @@ class WAUC_Functions {
         return $data;
     }
 
+    /**
+     * Check if the product requires token
+     * @param $post_id
+     * @return bool|mixed
+     */
+    public static function is_token_required( $post_id ) {
+        $fee = get_post_meta( $post_id, 'wauc_auction_deposit', true );
+
+        if( $fee ) {
+            return get_post_meta( $post_id, 'wauc_token_id', true );
+        }
+        return false;
+    }
+
+    /**
+     * @param null $post_id
+     * @param null $token_id
+     * @return mixed
+     */
+    public static function get_deposit_amount( $post_id = null, $token_id = null ) {
+        if( $post_id ) {
+            return get_post_meta( $post_id, 'wauc_auction_deposit', true );
+        } elseif ( $token_id ) {
+            return get_post_meta( $post_id, '_price', true );
+        }
+    }
+
+
+    /**
+     * Check if user has deposit fee
+     * @param $token
+     * @return bool
+     */
+    public static function has_user_deposit( $token ) {
+
+        if( is_user_logged_in() ) {
+            if( wc_customer_bought_product( wp_get_current_user()->user_email, get_current_user_id(), $token ) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
 
 

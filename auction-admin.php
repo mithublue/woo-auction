@@ -1,176 +1,10 @@
 <?php
-/**
- * Add to product type drop down.
- */
-function wauc_add_auction_product( $types ){
-    // Key should be exactly the same as in the class
-    $types[ 'auction' ] = __( 'Auction Product' );
-    return $types;
-}
-add_filter( 'product_type_selector', 'wauc_add_auction_product' );
-
-/**
- * Show pricing fields for simple_rental product.
- */
-function auction_custom_js() {
-    if ( 'product' != get_post_type() ) :
-        return;
-    endif;
-    ?><script type='text/javascript'>
-        jQuery( document ).ready( function() {
-            jQuery( '.options_group.pricing' ).addClass( 'show_if_auction' ).show();
-        });
-    </script><?php
-}
-add_action( 'admin_footer', 'auction_custom_js' );
-
-/**
- * Add a custom product tab.
- */
-function wauc_custom_product_tabs( $tabs) {
-    $tabs['auction'] = array(
-        'label'		=> __( 'Auction', 'wauc' ),
-        'target'	=> 'auction_options',
-        'class'		=> array( 'show_if_auction' ),
-    );
-    return $tabs;
-}
-add_filter( 'woocommerce_product_data_tabs', 'wauc_custom_product_tabs' );
-
-/**
- * Contents of the auction options product tab.
- */
-function wauc_auction_options_product_tab_content() {
-    global $post;
-    ?><div id='auction_options' class='panel woocommerce_options_panel'><?php
-    ?><div class='options_group'><?php
-    global $wp_roles;
-    $roles = $wp_roles->get_names();
-
-    // Download Type
-    woocommerce_wp_select( array( 'id' => 'wauc_product_condition',
-        'label' => __( 'Product Condition', 'wauc' ),
-        'desc_tip'		=> 'true',
-        'description' => sprintf( __( 'Condition of product', 'wauc' ) ),
-        'options' => array(
-            'new' => __( 'New', 'wauc' ),
-            'old'       => __( 'Old', 'wauc' ),
-        ) ) );
-    woocommerce_wp_text_input( array(
-        'id'			=> 'wauc_base_price',
-        'label'			=> __( 'Base price', 'wauc' ),
-        'desc_tip'		=> 'true',
-        'description'	=> __( 'Set the price where the price of the product will start from', 'wauc' ),
-        'type' 			=> 'number',
-    ) );
-    woocommerce_wp_text_input( array(
-        'id'			=> 'wauc_bid_increment',
-        'label'			=> __( 'Bid increment', 'wauc' ),
-        'desc_tip'		=> 'true',
-        'description'	=> __( 'Set the step of increment of bid price', 'wauc' ),
-        'type' 			=> 'number',
-    ) );
-    woocommerce_wp_text_input( array(
-        'id'			=> 'wauc_buy_price',
-        'label'			=> __( 'Buy now price', 'wauc' ),
-        'desc_tip'		=> 'true',
-        'description'	=> __( 'If you want to let the customers buy the product without auction , set a value for this, customer will be ablue
-                        to see the button until the auction price is less than the buy price', 'wauc' ),
-        'type' 			=> 'number',
-    ) );
-    woocommerce_wp_text_input( array(
-        'id'			=> 'wauc_auction_start',
-        'label'			=> __( 'Auction start date', 'wauc' ),
-        'desc_tip'		=> 'true',
-        'description'	=> __( 'Set the start date of auction', 'wauc' ),
-        'type' 			=> 'text',
-        'class'         => 'datepicker',
-        'default'       => time(),
-        'value'         => date('Y-m-d H:i', get_post_meta($post->ID,'wauc_auction_start',true) ? get_post_meta($post->ID,'wauc_auction_start',true) : time() )
-    ) );
-    woocommerce_wp_text_input( array(
-        'id'			=> 'wauc_auction_end',
-        'label'			=> __( 'Auction end date', 'wauc' ),
-        'desc_tip'		=> 'true',
-        'description'	=> __( 'Set the end date of auction', 'wauc' ),
-        'type' 			=> 'text',
-        'class'         => 'datepicker',
-        'value'         => date('Y-m-d H:i', get_post_meta($post->ID,'wauc_auction_end',true ) ? get_post_meta($post->ID,'wauc_auction_end',true ) : time() )
-    ) );
-
-    woocommerce_wp_checkbox( array( 'id' => 'wauc_auction_role_enabled',
-            'label' => __( 'Role based capability to bid', 'wauc' ),
-            'description'	=> __( 'Enable this if you want the only users with specific to have capability to bid on this product', 'wauc' ),
-            'cbvalue' => 'true'
-        )
-    );
-
-    $wauc_auction_roles = get_post_meta( $post->ID, 'wauc_auction_roles', true );
-    ?>
-    <p class="form-field wauc_auction_roles_field">
-        <label for="wauc_auction_roles">Select Roles</label>
-        <?php foreach( $roles as $rolename => $role ): ?>
-            <input type="checkbox" name="wauc_auction_roles[]" value="<?php echo $rolename;?>"
-                <?php echo is_array( $wauc_auction_roles ) && in_array( $rolename, $wauc_auction_roles ) ? 'checked' : '' ?>
-                > <?php echo $role; ?>
-        <?php endforeach; ?>
-        <span class="description"><?php _e( 'Select the roles that are capable to bid', 'wauc' ); ?></span>
-    </p>
-    <?php
-
-    ?></div>
-
-    </div><?php
-}
-add_action( 'woocommerce_product_data_panels', 'wauc_auction_options_product_tab_content' );
-
-
-/**
- * Save the custom fields.
- */
-function wauc_save_auction_option_field( $post_id ) {
-    if( isset( $_POST['wauc_product_condition']) ) {
-        update_post_meta( $post_id, 'wauc_product_condition', esc_attr( $_POST['wauc_product_condition'] ) );
-    }
-    if( isset( $_POST['wauc_base_price'] ) && is_numeric( $_POST['wauc_base_price'] ) ) {
-        update_post_meta( $post_id, 'wauc_base_price', $_POST['wauc_base_price'] );
-    }
-    if( isset( $_POST['wauc_bid_increment']) && is_numeric( $_POST['wauc_base_price'] ) ) {
-        update_post_meta( $post_id, 'wauc_bid_increment', (int)$_POST['wauc_bid_increment'] );
-    }
-    if( isset( $_POST['wauc_auction_start'] ) ) {
-        update_post_meta( $post_id, 'wauc_auction_start', strtotime( $_POST['wauc_auction_start'] ) );
-    }
-    if( isset( $_POST['wauc_auction_end']) ) {
-        update_post_meta( $post_id, 'wauc_auction_end', strtotime( $_POST['wauc_auction_end'] ) );
-    }
-    if( isset( $_POST['wauc_auction_role_enabled'] ) && $_POST['wauc_auction_role_enabled'] == 'true' ) {
-        update_post_meta( $post_id, 'wauc_auction_role_enabled', $_POST['wauc_auction_role_enabled'] );
-    } else {
-        update_post_meta( $post_id, 'wauc_auction_role_enabled', 'false' );
-    }
-    if( isset( $_POST['wauc_auction_roles'])  ) {
-        update_post_meta( $post_id, 'wauc_auction_roles', filter_var( $_POST['wauc_auction_roles'] , FILTER_SANITIZE_STRING ) );
-    }
-}
-add_action( 'woocommerce_process_product_meta_auction', 'wauc_save_auction_option_field'  );
-
-/**
- * Hide Attributes data panel.
- */
-function wauc_hide_attributes_data_panel( $tabs) {
-    $tabs['attribute']['class'][] = 'hide_if_auction';
-    //$tabs['general']['class'][] = 'show_if_auction';
-    return $tabs;
-}
-add_filter( 'woocommerce_product_data_tabs', 'wauc_hide_attributes_data_panel' );
-
 
 /**
  * Auction log meta section
  */
 
-class WAUC_Auction_Log {
+class WAUC_Auction_Admin {
 
     /**
      * @var Singleton The reference the *Singleton* instance of this class
@@ -190,8 +24,44 @@ class WAUC_Auction_Log {
     }
 
     public function __construct() {
+        add_filter( 'product_type_selector', array( $this, 'wauc_add_auction_product' ) );
         add_action( 'add_meta_boxes_product', array( $this, 'auction_log_metabox') );
+        add_filter( 'woocommerce_product_data_tabs', array( $this, 'wauc_custom_product_tabs' ) );
+        add_filter( 'woocommerce_product_data_tabs', array( $this, 'wauc_hide_attributes_data_panel' ) );
+        add_action( 'woocommerce_product_data_panels', array( $this, 'wauc_auction_options_product_tab_content' ) );
+        add_action( 'woocommerce_process_product_meta_auction', array( $this, 'wauc_save_auction_option_field' )  );
+        add_action( 'save_post', array( $this, 'create_token' ), 10, 3 );
 
+        add_action( 'admin_footer', array( $this, 'wauc_auction_custom_js' ) );
+        //order panel to clear order
+        add_action( 'woocommerce_order_status_completed', array( $this, 'woocommerce_order_status_completed' ), 10, 1 );
+    }
+
+    public function woocommerce_order_status_completed( $order ) {
+        $order = new WC_Order( $order );
+
+        foreach( $order->get_items() as $item ) {
+            $product_id = $item['product_id'];
+            break;
+        };
+
+        $auction_product = get_post( wp_get_post_parent_id( $product_id ) );
+
+        if( $order->get_billing_email() ) {
+            $text = 'Request for auction for product : '.$auction_product->post_title.' is approved ! You can start bidding here : <br>'.get_permalink( $product_id );
+            $subject = apply_filters( 'wauc_auction_approval_mail_title', 'Request Approved !' );
+            $message = apply_filters( 'wauc_auction_approval_mail_message', $text );
+            wp_mail( $order->get_billing_email(), $subject, $message );
+        }
+    }
+
+    /**
+     * Add to product type drop down.
+     */
+    function wauc_add_auction_product( $types ){
+        // Key should be exactly the same as in the class
+        $types[ 'auction' ] = __( 'Auction Product' );
+        return $types;
     }
 
     /**
@@ -206,6 +76,111 @@ class WAUC_Auction_Log {
             'normal',
             'default'
         );
+    }
+
+    /**
+     * Add a custom product tab.
+     */
+    function wauc_custom_product_tabs( $tabs) {
+        $tabs['auction'] = array(
+            'label'		=> __( 'Auction', 'wauc' ),
+            'target'	=> 'auction_options',
+            'class'		=> array( 'show_if_auction' ),
+        );
+        return $tabs;
+    }
+
+    /**
+     * Contents of the auction options product tab.
+     */
+    function wauc_auction_options_product_tab_content() {
+        global $post;
+        ?><div id='auction_options' class='panel woocommerce_options_panel'><?php
+        ?><div class='options_group'><?php
+        global $wp_roles;
+        $roles = $wp_roles->get_names();
+
+        // Download Type
+        woocommerce_wp_select( array( 'id' => 'wauc_product_condition',
+            'label' => __( 'Product Condition', 'wauc' ),
+            'desc_tip'		=> 'true',
+            'description' => sprintf( __( 'Condition of product', 'wauc' ) ),
+            'options' => array(
+                'new' => __( 'New', 'wauc' ),
+                'old'       => __( 'Old', 'wauc' ),
+            ) ) );
+        woocommerce_wp_text_input( array(
+            'id'			=> 'wauc_base_price',
+            'label'			=> __( 'Base price', 'wauc' ),
+            'desc_tip'		=> 'true',
+            'description'	=> __( 'Set the price where the price of the product will start from', 'wauc' ),
+            'type' 			=> 'number',
+        ) );
+        woocommerce_wp_text_input( array(
+            'id'			=> 'wauc_bid_increment',
+            'label'			=> __( 'Bid increment', 'wauc' ),
+            'desc_tip'		=> 'true',
+            'description'	=> __( 'Set the step of increment of bid price', 'wauc' ),
+            'type' 			=> 'number',
+        ) );
+        woocommerce_wp_text_input( array(
+            'id'			=> 'wauc_auction_deposit',
+            'label'			=> __( 'Deposit Fee', 'wauc' ),
+            'desc_tip'		=> 'true',
+            'description'	=> __( 'The amount needs to deposit to join an auction, leave empty if you do not want it', 'wauc' ),
+            'type' 			=> 'number',
+        ) );
+        woocommerce_wp_text_input( array(
+            'id'			=> 'wauc_buy_price',
+            'label'			=> __( 'Buy now price', 'wauc' ),
+            'desc_tip'		=> 'true',
+            'description'	=> __( 'If you want to let the customers buy the product without auction , set a value for this, customer will be ablue
+                        to see the button until the auction price is less than the buy price', 'wauc' ),
+            'type' 			=> 'number',
+        ) );
+        woocommerce_wp_text_input( array(
+            'id'			=> 'wauc_auction_start',
+            'label'			=> __( 'Auction start date', 'wauc' ),
+            'desc_tip'		=> 'true',
+            'description'	=> __( 'Set the start date of auction', 'wauc' ),
+            'type' 			=> 'text',
+            'class'         => 'datepicker',
+            'default'       => time(),
+            'value'         => date('Y-m-d H:i', get_post_meta($post->ID,'wauc_auction_start',true) ? get_post_meta($post->ID,'wauc_auction_start',true) : time() )
+        ) );
+        woocommerce_wp_text_input( array(
+            'id'			=> 'wauc_auction_end',
+            'label'			=> __( 'Auction end date', 'wauc' ),
+            'desc_tip'		=> 'true',
+            'description'	=> __( 'Set the end date of auction', 'wauc' ),
+            'type' 			=> 'text',
+            'class'         => 'datepicker',
+            'value'         => date('Y-m-d H:i', get_post_meta($post->ID,'wauc_auction_end',true ) ? get_post_meta($post->ID,'wauc_auction_end',true ) : time() )
+        ) );
+
+        woocommerce_wp_checkbox( array( 'id' => 'wauc_auction_role_enabled',
+                'label' => __( 'Role based capability to bid', 'wauc' ),
+                'description'	=> __( 'Enable this if you want the only users with specific to have capability to bid on this product', 'wauc' ),
+                'cbvalue' => 'true'
+            )
+        );
+
+        $wauc_auction_roles = get_post_meta( $post->ID, 'wauc_auction_roles', true );
+        ?>
+        <p class="form-field wauc_auction_roles_field">
+            <label for="wauc_auction_roles">Select Roles</label>
+            <?php foreach( $roles as $rolename => $role ): ?>
+                <input type="checkbox" name="wauc_auction_roles[]" value="<?php echo $rolename;?>"
+                    <?php echo is_array( $wauc_auction_roles ) && in_array( $rolename, $wauc_auction_roles ) ? 'checked' : '' ?>
+                > <?php echo $role; ?>
+            <?php endforeach; ?>
+            <span class="description"><?php _e( 'Select the roles that are capable to bid', 'wauc' ); ?></span>
+        </p>
+        <?php
+
+        ?></div>
+
+        </div><?php
     }
 
     function render_auction_log() {
@@ -307,6 +282,98 @@ class WAUC_Auction_Log {
         </script>
         <?php
     }
+
+    /**
+     * Save the custom fields.
+     */
+    function wauc_save_auction_option_field( $post_id ) {
+        if( isset( $_POST['wauc_product_condition']) ) {
+            update_post_meta( $post_id, 'wauc_product_condition', esc_attr( $_POST['wauc_product_condition'] ) );
+        }
+        if( isset( $_POST['wauc_base_price'] ) && is_numeric( $_POST['wauc_base_price'] ) ) {
+            update_post_meta( $post_id, 'wauc_base_price', $_POST['wauc_base_price'] );
+        }
+        if( isset( $_POST['wauc_bid_increment']) && is_numeric( $_POST['wauc_base_price'] ) ) {
+            update_post_meta( $post_id, 'wauc_bid_increment', (int)$_POST['wauc_bid_increment'] );
+        }
+        if( isset( $_POST['wauc_auction_start'] ) ) {
+            update_post_meta( $post_id, 'wauc_auction_start', strtotime( $_POST['wauc_auction_start'] ) );
+        }
+        if( isset( $_POST['wauc_auction_end']) ) {
+            update_post_meta( $post_id, 'wauc_auction_end', strtotime( $_POST['wauc_auction_end'] ) );
+        }
+        if( isset( $_POST['wauc_auction_role_enabled'] ) && $_POST['wauc_auction_role_enabled'] == 'true' ) {
+            update_post_meta( $post_id, 'wauc_auction_role_enabled', $_POST['wauc_auction_role_enabled'] );
+        } else {
+            update_post_meta( $post_id, 'wauc_auction_role_enabled', 'false' );
+        }
+        if( isset( $_POST['wauc_auction_roles'])  ) {
+            update_post_meta( $post_id, 'wauc_auction_roles', filter_var( $_POST['wauc_auction_roles'] , FILTER_SANITIZE_STRING ) );
+        }
+        if( isset( $_POST['wauc_auction_deposit'])  ) {
+            update_post_meta( $post_id, 'wauc_auction_deposit', $_POST['wauc_auction_deposit'] );
+            $token_id = get_post_meta( $post_id, 'wauc_token_id', true );
+
+            if( $token_id ) {
+                update_post_meta( $token_id,'_regular_price', $_POST['wauc_auction_deposit'] );
+                update_post_meta( $token_id,'_price', $_POST['wauc_auction_deposit'] );
+            }
+        }
+        /**/
+    }
+
+    /**
+     * Hide Attributes data panel.
+     */
+    function wauc_hide_attributes_data_panel( $tabs) {
+        $tabs['attribute']['class'][] = 'hide_if_auction';
+        //$tabs['general']['class'][] = 'show_if_auction';
+        return $tabs;
+    }
+
+    public function create_token(  $post_id, $post, $update  ) {
+
+        if( get_post_type( $post_id ) !== 'product' ) return;
+
+        $_pf = new WC_Product_Factory();
+        $product = $_pf->get_product($post_id);
+        if( $product->get_type() !== 'auction' ) return;
+
+        remove_action( 'save_post', array( $this, 'create_token' ) );
+
+        $args = array(
+            'post_title' => 'Token for product #'.$post->ID.' : '.$post->post_title,
+            'post_parent' => $post->ID,
+            'meta_input' => array(
+                'wauc_product_id' => $post->ID
+            ),
+            'post_type' => 'product',
+            'post_status' => 'publish'
+        );
+        $token_id = get_post_meta( $post->ID, 'wauc_token_id', true );
+
+        if( $token_id ) {
+            $args['ID'] = $token_id;
+        }
+
+        $token_id = wp_insert_post( $args );
+        update_post_meta( $post->ID, 'wauc_token_id', $token_id );
+    }
+
+
+    /**
+     * Show pricing fields for simple_rental product.
+     */
+    function wauc_auction_custom_js() {
+        if ( 'product' != get_post_type() ) :
+            return;
+        endif;
+        ?><script type='text/javascript'>
+            jQuery( document ).ready( function() {
+                jQuery( '.options_group.pricing' ).addClass( 'show_if_auction' ).show();
+            });
+        </script><?php
+    }
 }
 
-WAUC_Auction_Log::get_instance();
+WAUC_Auction_Admin::get_instance();

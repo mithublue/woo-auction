@@ -70,20 +70,51 @@ class WAUC_Auction_Action {
                 name="bidding_price"
                 type="number" value="<?php echo WAUC_Functions::get_product_auction_price( $product->id ); ?>"
                    step="<?php echo WAUC_Functions::get_bid_increament( $product->id ) ?>">
+            <p></p>
             <?php
 
+            $ok_to_bid = 0;
+
             if( !WAUC_Functions::is_last_bidder( $product->id ) ) {
+
                 if( WAUC_Functions::is_eligible_to_bid( get_current_user_id(), $product->id )) {
 
-                    echo apply_filters( 'wauc_set_auction_link',
-                        sprintf( '<button href="%s" rel="nofollow" data-product_id="%s" data-product_sku="%s" class="button %s product_type_%s">%s</button>',
-                            esc_url( $product->add_to_cart_url() ),
-                            esc_attr( $product->id ),
-                            esc_attr( $product->get_sku() ),
-                            $product->is_purchasable() ? 'add_to_cart_button' : '',
-                            esc_attr( $product->product_type ),
-                            esc_html( 'Set Auction Price' )
-                        ));
+                    $token = WAUC_Functions::is_token_required( $product->id );
+
+                    if( $token ) {
+
+                        if( !WAUC_Functions::has_user_deposit( $token ) ) {
+                            $token = new WC_Product( $token );
+                            ?>
+                            <input type="hidden" name="auction_request" value="<?php echo $token->id; ?>">
+                            <?php
+                            echo apply_filters( 'wauc_set_deposit_link',
+                                sprintf( 'You have to deposit '.$token->get_price_html().' to join this auction ! <button href="%s" rel="nofollow" data-product_id="%s" class="button %s product_type_%s">%s</button>',
+                                    esc_url( $token->add_to_cart_url() ),
+                                    esc_attr( $token->id ),
+                                    $product->is_purchasable() ? 'add_to_cart_button' : '',
+                                    esc_attr( $token->product_type ),
+                                    esc_html( __( 'Join Auction', 'wauc' ) )
+                                ));
+                        } else {
+                            $ok_to_bid = 1;
+                        }
+                    } else {
+                        $ok_to_bid = 1;
+                    }
+
+                    if( $ok_to_bid ) {
+                        echo apply_filters( 'wauc_set_auction_link',
+                            sprintf( '<button href="%s" rel="nofollow" data-product_id="%s" data-product_sku="%s" class="button %s product_type_%s">%s</button>',
+                                esc_url( $product->add_to_cart_url() ),
+                                esc_attr( $product->id ),
+                                esc_attr( $product->get_sku() ),
+                                $product->is_purchasable() ? 'add_to_cart_button' : '',
+                                esc_attr( $product->product_type ),
+                                esc_html( __( 'Set Bid', 'wauc' ) )
+                            ));
+                    }
+
                 }
             }
             ?>
@@ -116,6 +147,13 @@ class WAUC_Auction_Action {
         if( !isset( $_GET['wauc_bid'] ) ) return;
         if( !isset( $_POST['bidding_price'] ) ) return;
         if( !isset( $_POST['product_id'] ) || !is_numeric( $_POST['product_id'] ) ) return;
+
+        if( isset( $_POST['auction_request'] ) && $_POST['auction_request'] && is_numeric( $_POST['auction_request'] ) ) {
+            global $woocommerce;
+            WC()->cart->add_to_cart( $_POST['auction_request'] );
+            wp_redirect( wc_get_cart_url() );
+            exit;
+        }
 
         global $_SESSION;
         $product = wc_get_product( $_POST['product_id'] );
@@ -187,10 +225,7 @@ class WAUC_Auction_Action {
         );
         wp_redirect( get_permalink($product->id) );
         exit;
-
     }
-
-
 }
 
 WAUC_Auction_Action::get_instance();
