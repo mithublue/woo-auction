@@ -309,6 +309,32 @@ class WAUC_Functions {
         return $data;
     }
 
+    public static function get_participant_list( $product, $offset = 0, $per_page = 10 ) {
+
+        if( is_object( $product ) ) {
+            $product_id = $product->ID;
+        } elseif ( is_numeric( $product ) ) {
+            $product_id = $product;
+        }
+
+        global $wpdb;
+        $wauc_auction_log = $wpdb->prefix . 'wauc_auction_log';
+        $users = $wpdb->prefix . 'users';
+        $results = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT * FROM {$wauc_auction_log} INNER JOIN $users ON $users.ID = $wauc_auction_log.userid WHERE $wauc_auction_log.auction_id = %s ORDER BY date DESC LIMIT $offset, $per_page",
+                $product_id
+            )
+        );
+        $user_records = array();
+        foreach ( $results as $k => $res ) {
+            if( !isset( $user_records[$res->userid] ) ) {
+                $user_records[$res->userid] = $res;
+            }
+        }
+        return $user_records;
+    }
+
     /**
      * Check if the product requires token
      * @param $post_id

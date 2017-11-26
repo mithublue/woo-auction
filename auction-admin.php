@@ -33,6 +33,8 @@ class WAUC_Auction_Admin {
         add_action( 'save_post', array( $this, 'create_token' ), 10, 3 );
 
         add_action( 'admin_footer', array( $this, 'wauc_auction_custom_js' ) );
+        //partipents list
+        add_action( 'add_meta_boxes_product', array( $this, 'auction_participant_metabox') );
         //order panel to clear order
         add_action( 'woocommerce_order_status_completed', array( $this, 'woocommerce_order_status_completed' ), 10, 1 );
     }
@@ -64,10 +66,115 @@ class WAUC_Auction_Admin {
         return $types;
     }
 
+
+    public function auction_participant_metabox( $product ) {
+
+        $_pf = new WC_Product_Factory();
+        $prd = $_pf->get_product($product->ID);
+        if( $prd->get_type() !== 'auction' ) return;
+
+        add_meta_box(
+            'wauc-auction-participants',
+            __( 'Participant List', 'wauc' ),
+            array( $this, 'render_render_participant_list' ),
+            'product',
+            'normal',
+            'default'
+        );
+    }
+
+    public function render_render_participant_list() {
+        global $post;
+        $participants = (array)WAUC_Functions::get_participant_list( $post, 0, 10 );
+        ?>
+        <div class="bs-container" id="wauc_participant_list" v-cloak>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th><?php _e( 'ID', 'wauc' ); ?></th>
+                        <th><?php _e( 'Email', 'wauc' ); ?></th>
+                        <th><?php _e( 'Display Name', 'wauc' ); ?></th>
+                    </tr>
+                    <tr v-for="( user, key ) in participants">
+                        <td>{{ key }}</td>
+                        <td>{{ user.user_email }}</td>
+                        <td>{{ user.display_name }}</td>
+                    </tr>
+                </table>
+                <div class="text-right">
+                    <a href="javascript:" class="btn btn-sm btn-default" :class="{ disabled : is_disabled }" @click="render_list('prev')"><i class="fa fa-arrow-left"></i></a>
+                    <a href="javascript:" class="btn btn-sm btn-default" @click="render_list('next')"><i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function ($) {
+                $(document).ready(function () {
+                    var participant_list = new Vue({
+                        el: '#wauc_participant_list',
+                        data : {
+                            participants : JSON.parse('<?php echo json_encode($participants); ?>'),
+                            page_number : 0,
+                            per_page : 10
+                        },
+                        computed: {
+                            is_disabled : function () {
+                                if ( this.page_number == 0 ) return true;
+                                return false;
+                            }
+                        },
+                        methods : {
+                            render_list : function ( serial ) {
+
+                                if ( serial == 'prev' ) {
+                                    if( participant_list.page_number > 0 ) {
+                                        --participant_list.page_number;
+                                    }
+                                } else if ( serial == 'next' ){
+                                    ++participant_list.page_number;
+                                }
+                                //test
+
+                                var offset = participant_list.page_number * participant_list.per_page;
+
+                                $.post(
+                                    ajaxurl,
+                                    {
+                                        action : 'wauc_render_participant_list',
+                                        offset : offset,
+                                        per_page : participant_list.per_page,
+                                        product_id : '<?php echo $post->ID; ?>'
+                                    },
+                                    function (data) {
+                                        var data = JSON.parse(data);
+
+                                        if( data.result == 'success' ) {
+                                            participant_list.participants = data.data;
+                                        } else {
+                                            participant_list.page_number--;
+                                            return;
+                                        }
+                                    }
+                                )
+                            },
+                        }
+                    });
+                });
+
+            }(jQuery))
+        </script>
+        <?php
+
+    }
     /**
      * auction_log_metabox
      */
     function auction_log_metabox( $product ) {
+
+        $_pf = new WC_Product_Factory();
+        $prd = $_pf->get_product($product->ID);
+        if( $prd->get_type() !== 'auction' ) return;
+
         add_meta_box(
             'wauc-auction-log',
             __( 'Auction History', 'wauc' ),
@@ -76,6 +183,106 @@ class WAUC_Auction_Admin {
             'normal',
             'default'
         );
+    }
+
+    function render_auction_log() {
+        global $post;
+        $logs = (array)WAUC_Functions::get_log_list( $post->ID, 0, 10 );
+        ?>
+        <div class="bs-container" id="wauc_auction_history" v-cloak>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th><?php _e( 'Bid', 'wauc' ); ?></th>
+                        <th><?php _e( 'User', 'wauc' ); ?></th>
+                        <th><?php _e( 'Time', 'wauc' ); ?></th>
+                        <th><?php _e( 'Action', 'wauc' ); ?></th>
+                    </tr>
+                    <tr v-for="( log, key ) in logs">
+                        <td>{{ log.bid }}</td>
+                        <td>{{ log.user_nicename }} | {{ log.user_email }}</td>
+                        <td>{{ log.date }}</td>
+                        <td><a href="javascript:" @click="delete_log( key, log.id )" class="btn btn-default btn-sm"><i class="fa fa-remove"></i></a></td>
+                    </tr>
+                </table>
+                <div class="text-right">
+                    <a href="javascript:" class="btn btn-sm btn-default" :class="{ disabled : is_disabled }" @click="render_list('prev')"><i class="fa fa-arrow-left"></i></a>
+                    <a href="javascript:" class="btn btn-sm btn-default" @click="render_list('next')"><i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function ($) {
+                $(document).ready(function () {
+                    var auction_history = new Vue({
+                        el : '#wauc_auction_history',
+                        data : {
+                            logs : JSON.parse('<?php echo json_encode($logs); ?>'),
+                            page_number : 0,
+                            per_page : 10
+                        },
+                        computed : {
+                            is_disabled : function () {
+                                if ( this.page_number == 0 ) return true;
+                                return false;
+                            }
+                        },
+                        methods : {
+                            delete_log : function ( key, id ) {
+                                $.post(
+                                    ajaxurl,
+                                    {
+                                        action : 'wauc_delete_log',
+                                        id : id,
+                                        product_id : '<?php echo $post->ID; ?>'
+                                    },
+                                    function (data) {
+                                        var data = JSON.parse(data);
+                                        if( data.result == 'success') {
+                                            Vue.delete( auction_history.logs, key );
+                                        }
+                                    }
+                                )
+                            },
+                            render_list : function ( serial ) {
+
+                                if ( serial == 'prev' ) {
+                                    if( auction_history.page_number > 0 ) {
+                                        --auction_history.page_number;
+                                    }
+                                } else if ( serial == 'next' ){
+                                    ++auction_history.page_number;
+                                }
+                                //test
+
+                                var offset = auction_history.page_number * auction_history.per_page;
+
+                                $.post(
+                                    ajaxurl,
+                                    {
+                                        action : 'wauc_render_page',
+                                        offset : offset,
+                                        per_page : auction_history.per_page,
+                                        product_id : '<?php echo $post->ID; ?>'
+                                    },
+                                    function (data) {
+                                        var data = JSON.parse(data);
+
+                                        if( data.result == 'success' ) {
+                                            auction_history.logs = data.data;
+                                        } else {
+                                            auction_history.page_number--;
+                                            return;
+                                        }
+                                    }
+                                )
+                            },
+                        }
+                    })
+                })
+            }(jQuery))
+        </script>
+        <?php
     }
 
     /**
@@ -183,105 +390,7 @@ class WAUC_Auction_Admin {
         </div><?php
     }
 
-    function render_auction_log() {
-        global $post;
-        $logs = (array)WAUC_Functions::get_log_list( $post->ID, 0, 10 );
-        ?>
-        <div class="bs-container" id="wauc_auction_history">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <th><?php _e( 'Bid', 'wauc' ); ?></th>
-                        <th><?php _e( 'User', 'wauc' ); ?></th>
-                        <th><?php _e( 'Time', 'wauc' ); ?></th>
-                        <th><?php _e( 'Action', 'wauc' ); ?></th>
-                    </tr>
-                    <tr v-for="( log, key ) in logs">
-                        <td>{{ log.bid }}</td>
-                        <td>{{ log.user_nicename }} | {{ log.user_email }}</td>
-                        <td>{{ log.date }}</td>
-                        <td><a href="javascript:" @click="delete_log( key, log.id )" class="btn btn-default btn-sm"><i class="fa fa-remove"></i></a></td>
-                    </tr>
-                </table>
-                <div class="text-right">
-                    <a href="javascript:" class="btn btn-sm btn-default" :class="{ disabled : is_disabled }" @click="render_list('prev')"><i class="fa fa-arrow-left"></i></a>
-                    <a href="javascript:" class="btn btn-sm btn-default" @click="render_list('next')"><i class="fa fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-        <script>
-            (function ($) {
-                $(document).ready(function () {
-                    var auction_history = new Vue({
-                        el : '#wauc_auction_history',
-                        data : {
-                            logs : JSON.parse('<?php echo json_encode($logs); ?>'),
-                            page_number : 0,
-                            per_page : 10
-                        },
-                        computed : {
-                            is_disabled : function () {
-                                if ( this.page_number == 0 ) return true;
-                                return false;
-                            }
-                        },
-                        methods : {
-                            delete_log : function ( key, id ) {
-                                $.post(
-                                    ajaxurl,
-                                    {
-                                        action : 'wauc_delete_log',
-                                        id : id,
-                                        product_id : '<?php echo $post->ID; ?>'
-                                    },
-                                    function (data) {
-                                        var data = JSON.parse(data);
-                                        if( data.result == 'success') {
-                                            Vue.delete( auction_history.logs, key );
-                                        }
-                                    }
-                                )
-                            },
-                            render_list : function ( serial ) {
 
-                                if ( serial == 'prev' ) {
-                                    if( auction_history.page_number > 0 ) {
-                                        --auction_history.page_number;
-                                    }
-                                } else if ( serial == 'next' ){
-                                    ++auction_history.page_number;
-                                }
-                                //test
-
-                                var offset = auction_history.page_number * auction_history.per_page;
-
-                                $.post(
-                                    ajaxurl,
-                                    {
-                                        action : 'wauc_render_page',
-                                        offset : offset,
-                                        per_page : auction_history.per_page,
-                                        product_id : '<?php echo $post->ID; ?>'
-                                    },
-                                    function (data) {
-                                        var data = JSON.parse(data);
-
-                                        if( data.result == 'success' ) {
-                                            auction_history.logs = data.data;
-                                        } else {
-                                            auction_history.page_number--;
-                                            return;
-                                        }
-                                    }
-                                )
-                            },
-                        }
-                    })
-                })
-            }(jQuery))
-        </script>
-        <?php
-    }
 
     /**
      * Save the custom fields.

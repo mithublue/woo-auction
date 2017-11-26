@@ -137,6 +137,7 @@ class WAUC_Ajax_Action {
     public static function init() {
         add_action( 'wp_ajax_wauc_delete_log', array( 'WAUC_Ajax_Action', 'delete_log' ) );
         add_action( 'wp_ajax_wauc_render_page', array( 'WAUC_Ajax_Action', 'get_log_list' ) );
+        add_action( 'wp_ajax_wauc_render_participant_list', array( 'WAUC_Ajax_Action', 'get_participant_list' ) );
     }
 
     public static function delete_log() {
@@ -152,6 +153,44 @@ class WAUC_Ajax_Action {
             ));
         }
         exit;
+    }
+
+    public static function get_participant_list() {
+        if( !isset( $_POST['product_id'])
+            || !is_numeric( $_POST['product_id'] )
+            || !isset( $_POST['offset'] )
+            || !is_numeric( $_POST['offset'] )
+            || !isset( $_POST['per_page'] )
+            || !is_numeric( $_POST['per_page'] )
+        ) {
+            echo json_encode( array(
+                'result' => 'error',
+                'msg' => 'Data could not be loaded !'
+            ));
+            exit;
+        };
+
+        $data = WAUC_Functions::get_participant_list( (int)$_POST['product_id'], (int)$_POST['offset'], (int)$_POST['per_page'] );
+
+        if( !empty( $data ) ) {
+            echo json_encode(
+                array(
+                    'result' => 'success',
+                    'msg' => 'Data loaded successfully !',
+                    'data' => $data
+                )
+            );
+        } else {
+            echo json_encode(
+                array(
+                    'result' => 'error',
+                    'msg' => 'Data could not be loaded !',
+                    'data' => ''
+                )
+            );
+        }
+        exit;
+
     }
 
     public static function get_log_list() {

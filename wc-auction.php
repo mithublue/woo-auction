@@ -103,6 +103,7 @@ class WAUC_Init{
         require_once WAUC_ROOT.'/editor.php';
         require_once WAUC_ROOT.'/auction-product-front.php';
         require_once WAUC_ROOT.'/product-loop.php';
+        require_once WAUC_ROOT.'/notification.php';
     }
 
     /**
