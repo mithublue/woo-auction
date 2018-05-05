@@ -27,7 +27,10 @@ do_action('wauc_before_base_class' );
 
 if( file_exists( WAUC_ROOT.'/pro/loader.php' ) ) {
     require_once WAUC_ROOT.'/pro/loader.php';
+} else {
+    include_once WAUC_ROOT.'/pro-demo.php';
 }
+
 
 class WAUC_Init{
 
@@ -134,9 +137,6 @@ class WAUC_Init{
         require_once WAUC_ROOT.'/product-loop.php';
         require_once WAUC_ROOT.'/notification.php';
         require_once WAUC_ROOT.'/auction-report-admin.php';
-        if( !WAUC_Functions::is_pro() ) {
-            include_once WAUC_ROOT.'/pro-demo.php';
-        }
     }
 
     /**
