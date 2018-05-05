@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'WAUC_ROOT', dirname(__FILE__));
 define( 'WAUC_ASSET_URL', plugins_url( 'assets', __FILE__ ) );
 define( 'WAUC_PRODUCTION', false );
-
+define( 'WAUC_BASE_FILE', __FILE__ );
 
 do_action('wauc_before_base_class' );
 
