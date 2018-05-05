@@ -4,7 +4,7 @@
  * Plugin URI:
  * Description: A plugin to add auction feature with options to work with woocommerce.
  * Version: 1.0
- * Author: Mithu A Quayium
+ * Author: CyberCraft
  * Author URI: http://cybercraftit.com/
  * Requires at least: 4.0
  * Tested up to: 4.9.5
