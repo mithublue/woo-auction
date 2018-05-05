@@ -1,9 +1,11 @@
-=== WC Auction ===
-Contributors: mithublue,cybercraftit
+=== Woo Auction ===
+
+Contributors: cybercraftit, mithublue
 Tags: WooCommerce Auction, woo auction, woocommerce auction, auction, widget, sidebar, auction sidebar, auction widget, completed auction, latest auction,completed auctions, latest auctions,
-simple auction, wc auction, wc simple auction, wc sidebar auction, woocommerce bid, wc bid, bidder, latest bid, completed bid
+simple auction, wc auction, wc simple auction, wc sidebar auction, woocommerce bid, wc bid, bidder, latest bid, completed bid, bidder, fake bidder, fake bid, ban user, ban customer,
+notify bidder, notification, wc bid, wc bidder, woocommerce, woocommerce bid, woocommerce bidder,bid, bidder, auction, easy auction, easy.
 Requires at least: 3.0.1
-Tested up to: 4.7.3
+Tested up to: 4.9.5
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,18 +16,50 @@ This plugin is to add auction feature with lots of options to work with woocomme
 
 This plugin is to add auction feature with lots of options to work with woocommerce. Different widgets are included as well
 
+= Features =
+
+* Add product for auction
+* Set product status (old or new)
+* Set base price for auction
+* Set bid increment
+* Set deposit fee to make sure the least amount to be paid to joid auction
+* Set buy now price. User will also have the option to purchase the product instantly.
+* Set auction start date
+* Set auction end date
+* Set auction current time status, if it is running currently, or in process or it is a future auction
+* Can make the product set to draft to re-auction if the winner did not claim the product in the specified period of time.
+* Set time limit, within which the winner is bound to own the product after auction.
+* Set notification for bids, auction completion, auction winning, auction joining request and more ....
+* Notify other bidders when someone bids in corresponding auctions.
+* Notify admin when auction for a product is end.
+* Auction report
+* And many more...
+
+= Pro Features =
+
+* Fake bid tracker
+* Ban users for fake bid to all auction
+* Ban users for fake bid to specific auction
+* Customize notification message
+* Control display of auction products in different pages.
+* Can set role(s) specifically to let them join the auction
+* Can ban the user who did not own the product after winning the auction.
+* Advanced Settings
+* Premium Support
+* And more...
+
+
 == Our Official Support Forum ==
 
 To get faster support , You can contact through our official forum site.
 Official support forum : http://supports.cybercraftit.com/supports/support/woo-auction/
 
-= Features =
+== Screenshots ==
 
-* Can add product for auction
-* Can set product status (old or new)
-* Auction start and end time
-* Widgets for current, completed and upcoming auctions
-* And many more...
+1. screenshot-1
+2. screenshot-2
+3. screenshot-3
+4. screenshot-4
 
 == Installation ==
 

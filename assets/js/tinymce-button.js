@@ -6,7 +6,7 @@
 
         editor.addButton('wauc_auction', {
             //type: 'listbox',
-            text: 'Auction widget',
+            text: 'Auction widget (Pro)',
             onclick : function(e){
                 $.post(
                     ajaxurl,

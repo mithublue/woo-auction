@@ -1,0 +1,23 @@
+{
+  "name": "wc-auction",
+  "version": "1.0.0",
+  "description": "=== WC Auction ===\r Contributors: mithublue,cybercraftit\r Tags: WooCommerce Auction, woo auction, woocommerce auction, auction, widget, sidebar, auction sidebar, auction widget, completed auction, latest auction,completed auctions, latest auctions,\r simple auction, wc auction, wc simple auction, wc sidebar auction, woocommerce bid, wc bid, bidder, latest bid, completed bid\r Requires at least: 3.0.1\r Tested up to: 4.7.3\r Stable tag: 1.0\r License: GPLv2 or later\r License URI: http://www.gnu.org/licenses/gpl-2.0.html",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mithublue/WC-Auction.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mithublue/WC-Auction/issues"
+  },
+  "homepage": "https://github.com/mithublue/WC-Auction#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^6.0.0-17"
+  }
+}

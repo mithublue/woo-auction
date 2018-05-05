@@ -1,6 +1,5 @@
 (function ($) {
     $(document).ready(function () {
-
         var wauc_admin = {
             init : function(){
                 wauc_admin.role_list_show_hide($(':checkbox[name="wauc_auction_role_enabled"]'),'p.wauc_auction_roles_field');
