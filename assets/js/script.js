@@ -10,13 +10,14 @@
     var now = new Date().getTime();
 
     // Find the distance between now an the count down date
+
     var distance;
     if( timewrapper ) {
         distance = timewrapper.innerText;
 
-    } else {
+    } /*else {
         distance = countDownDate - now;
-    }
+    }*/
 
     var x = setInterval(function() {
 
@@ -37,6 +38,10 @@
         --distance;
 
         // Output the result in an element with id="demo"
+        /*console.log(days);
+        console.log(hours);
+        console.log(minutes);
+        console.log(seconds);*/
         element.innerHTML = days + "d " + hours + "h "
             + minutes + "m " + seconds + "s ";
 
