@@ -23,6 +23,20 @@ define( 'WAUC_ASSET_URL', plugins_url( 'assets', __FILE__ ) );
 define( 'WAUC_PRODUCTION', false );
 
 
+//check wc
+add_action( 'admin_notices', function () {
+    if( !class_exists( 'WooCommerce' ) ) { ?>
+        <div class="notice notice-warning is-dismissible">
+            <p><?php _e( 'WooCommerce is not activated! Woo Auction needs WooCommerce to  be activated.', 'plman' ); ?></p>
+        </div>
+        <?php
+    }
+} );
+if( !class_exists( 'WooCommerce' ) ) {
+    return;
+}
+
+
 do_action('wauc_before_base_class' );
 
 if( file_exists( WAUC_ROOT.'/pro/loader.php' ) ) {
