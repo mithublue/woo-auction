@@ -231,6 +231,10 @@ class WAUC_Init{
                 }
             }
 
+            /**
+             * Actions taken if
+             * winner unclaimed the product
+             */
             //deselect winner
             WAUC_Functions::deselect_winner( $to_deselect_userids, $to_deselect_action_ids );
 
@@ -254,7 +258,7 @@ class WAUC_Init{
             'it is running !'
         ));
 
-        do_action( 'wauc_scheduled_task' );
+        do_action( 'wauc_scheduled_task', $results );
     }
 
     public static function add_settings_page ( $settings ) {

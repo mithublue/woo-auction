@@ -6,3 +6,102 @@ it is running !
 it is running !
 
 
+07-05-18 05:42:25
+to:a@a.com
+subject: 
+msg:
+
+
+07-05-18 05:42:25
+to:a@a.com
+subject: 
+msg:
+
+
+07-05-18 05:42:25
+to:a@a.com
+subject: 
+subject: 
+msg:                Auction has completed for the product Auction 5. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auction-5/                
+
+
+07-05-18 05:42:26
+to:c@c.com
+subject: 
+msg:                Auction has completed for the product Auc 6. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc-6/                
+
+
+07-05-18 05:42:26
+to:c@c.com
+subject: 
+msg:                Auction has completed for the product Auc 6. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc-6/                
+
+
+07-05-18 05:42:27
+it is running !
+
+
+07-05-18 05:42:27
+it is running !
+
+
+11-05-18 04:00:01
+to:a@a.com
+subject: 
+msg:
+
+
+11-05-18 04:00:01
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction 5. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auction-5/                
+
+
+11-05-18 04:00:02
+to:c@c.com
+subject: 
+msg:                Auction has completed for the product Auc 6. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc-6/                
+
+
+11-05-18 04:00:03
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction Product. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc7/                
+
+
+11-05-18 04:00:04
+it is running !
+
+
+11-05-18 04:02:40
+to:c@c.com
+subject: 
+msg:
+
+
+11-05-18 04:02:40
+BID TO OTHERS
+to:a@a.com
+subject: 
+msg:
+
+
+11-05-18 04:04:07
+to:a@a.com
+subject: 
+msg:
+
+
+11-05-18 04:04:07
+BID TO OTHERS
+to:c@c.com
+subject: 
+msg:
+
+
