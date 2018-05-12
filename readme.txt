@@ -16,6 +16,11 @@ This plugin is to add auction feature with lots of options to work with woocomme
 
 This plugin is to add auction feature with lots of options to work with woocommerce. Different widgets are included as well
 
+== Documentation ==
+
+Our complete documentation on Woo Auction and Woo Auction Pro is here
+http://docs.cybercraftit.com/docs/user-doc-woo-auction-pro/
+
 = Features =
 
 * Add product for auction

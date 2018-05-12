@@ -105,3 +105,33 @@ subject:
 msg:
 
 
+12-05-18 04:00:07
+to:a@a.com
+subject: 
+msg:
+
+
+12-05-18 04:00:07
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction 5. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auction-5/                
+
+
+12-05-18 04:00:08
+to:c@c.com
+subject: 
+msg:                Auction has completed for the product Auc 6. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc-6/                
+
+
+12-05-18 04:00:09
+it is running !
+
+
+12-05-18 04:06:18
+to:c@c.com
+subject: 
+msg:
+
+
