@@ -274,7 +274,7 @@ class WAUC_Functions {
      */
     public static function is_auction_product( $product ) {
         if( is_integer( $product ) )
-            $product = wc_get_product( $product );
+            $product = (new WC_Product_Factory())->get_product($product);
         return $product->get_type() == 'auction' ? true : false;
     }
 

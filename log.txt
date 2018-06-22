@@ -135,3 +135,135 @@ subject:
 msg:
 
 
+13-05-18 16:04:16
+to:a@a.com
+subject: 
+msg:
+
+
+13-05-18 16:04:16
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction 5. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auction-5/                
+
+
+13-05-18 16:04:17
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction Product. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc7/                
+
+
+13-05-18 16:04:18
+to:c@c.com
+subject: 
+msg:
+
+
+13-05-18 16:04:18
+it is running !
+
+
+14-05-18 04:40:22
+to:a@a.com
+subject: 
+msg:
+
+
+14-05-18 04:40:22
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction 5. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auction-5/                
+
+
+14-05-18 04:40:23
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction Product. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc7/                
+
+
+14-05-18 04:40:24
+to:c@c.com
+subject: 
+msg:
+
+
+14-05-18 04:40:24
+it is running !
+
+
+16-05-18 18:17:02
+to:a@a.com
+subject: 
+msg:
+
+
+16-05-18 18:17:03
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction 5. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auction-5/                
+
+
+16-05-18 18:17:04
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction Product. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc7/                
+
+
+16-05-18 18:17:05
+it is running !
+
+
+17-05-18 05:07:57
+to:a@a.com
+subject: 
+msg:
+
+
+17-05-18 05:07:57
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction 5. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auction-5/                
+
+
+17-05-18 05:07:58
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction Product. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc7/                
+
+
+17-05-18 05:07:59
+it is running !
+
+
+22-06-18 03:50:17
+to:a@a.com
+subject: 
+msg:
+
+
+22-06-18 03:50:17
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction 5. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auction-5/                
+
+
+22-06-18 03:50:18
+to:a@a.com
+subject: 
+msg:                Auction has completed for the product Auction Product. You can visit the URL from
+                here. URL : http://localhost/wp4.9.4/product/auc7/                
+
+
+22-06-18 03:50:19
+it is running !
+
+

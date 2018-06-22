@@ -46,8 +46,8 @@ class WAUC_Auction_Action {
         }
         global $post, $_SESSION;
 
-        $product = wc_get_product( $post );
-        if( !WAUC_Functions::is_auction_product( $product ) ) return;
+        $product = (new WC_Product_Factory())->get_product($post->ID);
+        if( !WAUC_Functions::is_auction_product( $post->ID ) ) return;
 
         $is_auction_eligible = apply_filters( 'wauc_is_auction_eligible', true, $product );
 
