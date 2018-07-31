@@ -3,7 +3,7 @@
  * Plugin Name: Woo Auction
  * Plugin URI:
  * Description: A plugin to add auction feature with options to work with woocommerce.
- * Version: 1.0.1
+ * Version: 1.0.1.1
  * Author: CyberCraft
  * Author URI: http://cybercraftit.com/
  * Requires at least: 4.0
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'WAUC_ROOT', dirname(__FILE__));
 define( 'WAUC_ASSET_URL', plugins_url( 'assets', __FILE__ ) );
-define( 'WAUC_PRODUCTION', false );
+define( 'WAUC_PRODUCTION', true );
 define( 'WAUC_BASE_FILE', __FILE__ );
 
 do_action('wauc_before_base_class' );
@@ -146,6 +146,7 @@ class WAUC_Init{
         require_once WAUC_ROOT.'/product-loop.php';
         require_once WAUC_ROOT.'/notification.php';
         require_once WAUC_ROOT.'/auction-report-admin.php';
+	    require_once WAUC_ROOT.'/news.php';
     }
 
     /**
