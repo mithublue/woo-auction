@@ -21,12 +21,12 @@ This plugin is to add auction feature with lots of options to work with woocomme
 Our complete documentation on Woo Auction and Woo Auction Pro is here
 http://docs.cybercraftit.com/docs/user-doc-woo-auction-pro/
 
-= Demo =
+== Demo ==
 
 You can try the demo of this plugin <a href="http://cybercraftit.com/demo/testwp/woo-auction/demo/">here</a>
 
 
-= Pro Version =
+== Pro Version ==
 
 You can find the pro version <a href="http://cybercraftit.com/woo-auction-pro">here</a>
 
@@ -62,7 +62,7 @@ You can find the pro version <a href="http://cybercraftit.com/woo-auction-pro">h
 * Premium Support
 * And more...
 
-= Pro Version =
+== Pro Version ==
 
 You can find the pro version <a href="http://cybercraftit.com/woo-auction-pro">here</a>
 
