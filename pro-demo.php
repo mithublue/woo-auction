@@ -158,3 +158,39 @@ if( phpversion() > '5.3' ) {
     );
 }
 
+/**
+ * Auction tab options
+ */
+add_action( 'wauc_options_product_tab_bottom', 'demo_wauc_auction_options_product_tab_content' );
+
+function demo_wauc_auction_options_product_tab_content() {
+
+	global $post;
+	global $wp_roles;
+	$roles = $wp_roles->get_names();
+
+	woocommerce_wp_checkbox( array( 'id' => 'product_option_demo_1',
+	                                'label' => __( 'Disable Purchasing Token by Users (Pro)', 'wauc' ),
+	                                'description'	=> __( 'Enable this if you want purchasing token to be automated, logged in users will not need to purchase token manually. Token purchase and completing the purchase order will happen automatically. Enable this if you want any of your users to be able to bid on your product. Please note : this is applicable ONLY IF the auction product has no deposit fee and the auction is set for loggedin users.', 'wauc' ),
+	                                'cbvalue' => 'true',
+            'class' => 'conton'
+		)
+	);
+
+	woocommerce_wp_checkbox( array( 'id' => 'product_option_demo_2',
+	                                'label' => __( 'Role based capability to bid (Pro)', 'wauc' ),
+	                                'description'	=> __( 'Enable this if you want the only users with specific to have capability to bid on this product', 'wauc' ),
+	                                'cbvalue' => 'true'
+		)
+	);
+
+	?>
+    <p class="form-field product_option_demo_3_field">
+        <label for="wauc_auction_roles"><?php _e( 'Select Roles (Pro)', 'wauc' ); ?></label>
+		<?php foreach( $roles as $rolename => $role ): ?>
+            <input type="checkbox" name="product_option_demo_3[]" value="<?php echo $rolename;?>"> <?php echo $role; ?>
+		<?php endforeach; ?>
+        <span class="description"><?php _e( 'Select the roles that are capable to bid', 'wauc' ); ?></span>
+    </p>
+	<?php
+}

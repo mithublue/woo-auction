@@ -107,7 +107,7 @@ class WAUC_Auction_Action {
                                         $product->is_purchasable() ? 'add_to_cart_button' : '',
                                         esc_attr( $token->get_type() ),
                                         esc_html( __( 'Get Token to Join Auction', 'wauc' ) )
-                                    ));
+                                    ),$product);
                             } else {
                                 $ok_to_bid = 1;
                             }
@@ -124,22 +124,24 @@ class WAUC_Auction_Action {
                                     $product->is_purchasable() ? 'add_to_cart_button' : '',
                                     esc_attr( $product->get_type() ),
                                     esc_html( __( 'Set Bid', 'wauc' ) )
-                                ));
-                            if( WAUC_Functions::has_buy_now_price($product) ) {
-                                // show add to cart if has buy now price and the price < auction price
-                                if( WAUC_Functions::get_product_auction_price( $product->get_id() ) <= WAUC_Functions::has_buy_now_price($product) ) {
-                                    echo apply_filters( 'wauc_set_auction_link',
-                                        sprintf( '<a href="%s" rel="nofollow" data-product_id="%s" data-product_sku="%s" class="button %s product_type_%s">%s</a>',
-                                            esc_url( get_permalink(get_site_url()).'?add-to-cart='.$product->get_id() ),
-                                            esc_attr( $product->get_id() ),
-                                            esc_attr( $product->get_sku() ),
-                                            $product->is_purchasable() ? 'add_to_cart_button' : '',
-                                            esc_attr( $product->get_type() ),
-                                            esc_html( __( 'Add to Cart', 'wauc' ) )
-                                        ));
-                                }
-                            }
+                                ),$product);
                         }
+
+                        //if product has buy now price
+	                    if( WAUC_Functions::has_buy_now_price($product) ) {
+		                    // show add to cart if has buy now price and the price < auction price
+		                    if( WAUC_Functions::get_product_auction_price( $product->get_id() ) <= WAUC_Functions::has_buy_now_price($product) ) {
+			                    echo apply_filters( 'wauc_set_auction_link',
+				                    sprintf( '<a href="%s" rel="nofollow" data-product_id="%s" data-product_sku="%s" class="button %s product_type_%s">%s</a>',
+					                    esc_url( get_permalink(get_site_url()).'?add-to-cart='.$product->get_id() ),
+					                    esc_attr( $product->get_id() ),
+					                    esc_attr( $product->get_sku() ),
+					                    $product->is_purchasable() ? 'add_to_cart_button' : '',
+					                    esc_attr( $product->get_type() ),
+					                    esc_html( __( 'Add to Cart', 'wauc' ) )
+				                    ));
+		                    }
+	                    }
                     }
                 }
 
@@ -269,6 +271,7 @@ class WAUC_Auction_Action {
         /*if( !isset( $_POST['bidding_price'] ) ) return;*/
         if( !isset( $_POST['product_id'] ) || !is_numeric( $_POST['product_id'] ) ) return;
 
+        do_action( 'process_bid_request_start', $_POST );
 
         //if requests for auction
         if( isset( $_POST['auction_request'] ) && $_POST['auction_request'] && is_numeric( $_POST['auction_request'] ) ) {

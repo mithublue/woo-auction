@@ -525,5 +525,11 @@ tr:nth-child(odd) {
 #fake_auction_report {
   padding-top: 20px;
 }
+.product_option_demo_1_field,
+.product_option_demo_2_field,
+.product_option_demo_3_field,
+.product_option_demo_3_field {
+  border: 1px solid #de0000;
+}
 
 /*# sourceMappingURL=wauc.css.map */
