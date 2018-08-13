@@ -60,7 +60,7 @@ You can find the pro version <a href="http://cybercraftit.com/woo-auction-pro">h
 * Can ban the user who did not own the product after winning the auction.
 * Advanced Settings
 * Premium Support
-* Logged in users can start bidding withing needing to purchase token manually. It will happen automatically behind the scene. (New)
+* Logged in users can start bidding without needing to purchase token manually. It will happen automatically behind the scene. (New)
 * And more...
 
 == Pro Version ==
