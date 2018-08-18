@@ -19,11 +19,13 @@ This plugin is to add auction feature with lots of options to work with woocomme
 == Documentation ==
 
 Our complete documentation on Woo Auction and Woo Auction Pro is here
-http://docs.cybercraftit.com/docs/user-doc-woo-auction-pro/
+http://docs.cybercraftit.com/docs/user-doc-woo-auction-pro/ .
 
 == Demo ==
 
-You can try the demo of this plugin <a href="http://cybercraftit.com/demo/testwp/woo-auction/demo/">here</a>
+You can try the demo of this plugin <a href="http://cybercraftit.com/demo/testwp/woo-auction/demo/">here</a> .
+There you will get options and settings for making auction product in product creation page or product edit page. Also, you will see Auction report in
+admin menu > Product > Auction Report menu. Moreover, you will get additional settings in WooCommerce > Settings > Auction
 
 
 == Pro Version ==
