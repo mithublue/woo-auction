@@ -3,11 +3,11 @@
  * Plugin Name: Woo Auction
  * Plugin URI:
  * Description: A plugin to add auction feature with options to work with woocommerce.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: CyberCraft
  * Author URI: http://cybercraftit.com/
  * Requires at least: 4.0
- * Tested up to: 4.9.8
+ * Tested up to: 5.0.3
  *
  * Text Domain: wauc
  */

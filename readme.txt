@@ -5,8 +5,8 @@ Tags: WooCommerce Auction, woo auction, woocommerce auction, auction, widget, si
 simple auction, wc auction, wc simple auction, wc sidebar auction, woocommerce bid, wc bid, bidder, latest bid, completed bid, bidder, fake bidder, fake bid, ban user, ban customer,
 notify bidder, notification, wc bid, wc bidder, woocommerce, woocommerce bid, woocommerce bidder,bid, bidder, auction, easy auction, easy.
 Requires at least: 3.0.1
-Tested up to: 4.9.8
-Stable tag: 1.0.2
+Tested up to: 5.0.3
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,11 @@ e.g.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+== 1.0.3 ==
+
+1. [new] Purchasing token is removed. It will be done automatically behind the scene for new bidder.
+2. [new] Gutenberd compatibility added
 
 == 1.0.2 ==
 
