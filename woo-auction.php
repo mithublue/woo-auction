@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'WAUC_ROOT', dirname(__FILE__));
-define( 'WAUC_ASSET_URL', plugins_url( 'assets', __FILE__ ) );
+define( 'WAUC_ASSET_URL', plugins_url( 'assets', __FILE__ ) ); 
 define( 'WAUC_PRODUCTION', true );
 define( 'WAUC_BASE_FILE', __FILE__ );
 
