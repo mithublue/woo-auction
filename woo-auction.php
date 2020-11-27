@@ -11,7 +11,7 @@
  * Tested up to: 5.0.3
  *
  * Text Domain: wauc
- */ 
+ */
 
 
 
