@@ -37,9 +37,38 @@ class WAUC_DB {
 
     }
 
-    public function install_tables()
-    {
+    public function install_tables() {
+        global $wpdb;
+        $data_table = $wpdb->prefix."wauc_auction_log";
 
+        $winners = $wpdb->prefix."wauc_winners";
+        $sql = " CREATE TABLE IF NOT EXISTS $data_table (
+  						`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+						  `userid` bigint(20) unsigned NOT NULL,
+						  `auction_id` bigint(20) unsigned DEFAULT NULL,
+						  `bid` decimal(30,2) DEFAULT NULL,
+						  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+						  `is_fake` tinyint(1) DEFAULT 0,
+						  `proxy` tinyint(1) DEFAULT NULL,
+						  PRIMARY KEY (`id`)
+						);";
+
+        $sql_winners = "CREATE TABLE IF NOT EXISTS $winners (
+  						  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+						  `userid` bigint(20) unsigned NOT NULL,
+						  `auction_id` bigint(20) unsigned NOT NULL,
+						  `is_selected` tinyint(1) DEFAULT 0,
+						  `is_winner` tinyint(1) DEFAULT 0,
+						  `log_id` bigint(20) DEFAULT NULL,
+						  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+						  PRIMARY KEY (`id`)
+						);";
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+        dbDelta( $sql_winners );
+        if ( !wp_next_scheduled ( 'wauc_auction_daily_hook' )) {
+            wp_schedule_event( time(), 'daily', 'wauc_auction_daily_hook' );
+        }
     }
 }
 

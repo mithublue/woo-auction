@@ -39,7 +39,7 @@ class WAUC_Notification {
 }
 
 function WAUC_Notification() {
-    return WAUC_Settings::instance();
+    return WAUC_Notification::instance();
 }
 
 WAUC_Notification();

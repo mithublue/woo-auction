@@ -19,6 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
+if( !function_exists( 'pri' ) ) {
+    function pri( $data ) {
+        echo '<pre>';print_r( $data );echo '</pre>';
+    }
+}
+
 define( 'WAUC_ROOT', dirname(__FILE__));
 define( 'WAUC_ASSET_URL', plugins_url( 'assets', __FILE__ ) );
 define( 'WAUC_PRODUCTION', true );
@@ -59,10 +65,28 @@ class WAUC_Init {
 
     public function __construct() {
         register_activation_hook( __FILE__, [ $this, 'on_active' ] );
+        register_deactivation_hook( __FILE__, array( $this , 'on_deactivation' ) );
+        $this->includes();
     }
 
     public function on_active() {
+        include_once "inc/class-db.php";
         WAUC_DB()->install_tables();
+    }
+
+    /**
+     * Run plugin deactivation
+     */
+    public static function deactivation(){
+        wp_clear_scheduled_hook('wauc_auction_daily_hook' );
+    }
+
+    public function includes() {
+        require_once 'vendor/autoload.php';
+
+        foreach ( glob( WAUC_ROOT . '/inc/*.php') as $k => $filename ) {
+            include_once $filename;
+        }
     }
 }
 

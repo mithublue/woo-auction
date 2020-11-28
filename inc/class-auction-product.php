@@ -34,7 +34,29 @@ class WAUC_Product {
     }
 
     public function __construct() {
+        add_filter( 'product_type_selector', [ $this, 'custom_product_type' ] );
+        add_action( 'init', 'create_custom_product_type' );
+        add_filter( 'woocommerce_product_class', [ $this, 'woocommerce_product_class'], 10, 2 );
+    }
 
+    public function custom_product_type( $types ) {
+        $types[ 'auction' ] = __( 'Auction Product', 'wauc' );
+        return $types;
+    }
+
+    public function woocommerce_product_class( $classname, $product_type ) {
+        if ( $product_type == 'auction' ) {
+            $classname = 'WC_Product_Custom';
+        }
+        return $classname;
+    }
+}
+
+function create_custom_product_type() {
+    class WC_Product_Custom extends WC_Product {
+        public function get_type() {
+            return 'auction';
+        }
     }
 }
 
