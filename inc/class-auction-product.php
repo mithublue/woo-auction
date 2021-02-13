@@ -1,5 +1,14 @@
 <?php
 
+if( !class_exists( 'WC_Product_Auction' ) && class_exists( 'WC_Product' ) ) {
+    class WC_Product_Auction extends WC_Product {
+        public function __construct($product = 0) {
+            $this->product_type = 'auction';
+            parent::__construct($product);
+        }
+    }
+}
+
 class WAUC_Product {
 
     /**

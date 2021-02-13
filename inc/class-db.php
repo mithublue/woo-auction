@@ -40,8 +40,8 @@ class WAUC_DB {
     public function install_tables() {
         global $wpdb;
         $data_table = $wpdb->prefix."wauc_auction_log";
-
         $winners = $wpdb->prefix."wauc_winners";
+
         $sql = " CREATE TABLE IF NOT EXISTS $data_table (
   						`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 						  `userid` bigint(20) unsigned NOT NULL,
