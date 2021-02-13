@@ -66,9 +66,6 @@ class WAUC_DB {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql );
         dbDelta( $sql_winners );
-        if ( !wp_next_scheduled ( 'wauc_auction_daily_hook' )) {
-            wp_schedule_event( time(), 'daily', 'wauc_auction_daily_hook' );
-        }
     }
 }
 

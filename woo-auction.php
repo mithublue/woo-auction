@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Woo Auction
  * Plugin URI:
@@ -12,7 +11,6 @@
  *
  * Text Domain: wauc
  */
-
 
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -72,13 +70,14 @@ class WAUC_Init {
     public function on_active() {
         include_once "inc/class-db.php";
         WAUC_DB()->install_tables();
+        WAUC_Schedule()->init_schedules();
     }
 
     /**
      * Run plugin deactivation
      */
     public static function deactivation(){
-        wp_clear_scheduled_hook('wauc_auction_daily_hook' );
+        WAUC_Schedule()->clear_schedules();
     }
 
     public function includes() {
