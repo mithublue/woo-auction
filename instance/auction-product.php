@@ -1,6 +1,8 @@
 <?php
 
-class WAUC_Admin_Menu {
+namespace wauc\instance;
+
+class Auction_Product{
 
     /**
      * Instance
@@ -37,9 +39,3 @@ class WAUC_Admin_Menu {
 
     }
 }
-
-function WAUC_Admin_Menu() {
-    return WAUC_Admin_Menu::instance();
-}
-
-WAUC_Admin_Menu();

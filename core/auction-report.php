@@ -1,6 +1,7 @@
 <?php
+namespace wauc\core;
 
-class WAUC_Report {
+class Auction_Report {
 
     /**
      * Instance
@@ -37,9 +38,3 @@ class WAUC_Report {
 
     }
 }
-
-function WAUC_Report() {
-    return WAUC_Report::instance();
-}
-
-WAUC_Report();

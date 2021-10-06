@@ -1,6 +1,8 @@
 <?php
 
-class WAUC_Notification {
+namespace wauc\core;
+
+class Admin_Menu{
 
     /**
      * Instance
@@ -37,9 +39,3 @@ class WAUC_Notification {
 
     }
 }
-
-function WAUC_Notification() {
-    return WAUC_Notification::instance();
-}
-
-WAUC_Notification();
