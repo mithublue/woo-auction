@@ -16,11 +16,6 @@
 namespace wauc;
 
 use As247\WpEloquent\Application;
-use wauc\core\Ajax_Actions;
-use wauc\core\Auction_Admin;
-use wauc\core\Auction_Product_Front;
-use wauc\core\Auction_Report;
-use wauc\core\News;
 use wauc\core\Schedules;
 use wauc\migrations\Migrator;
 
@@ -82,10 +77,9 @@ class WAUC {
     }
 
     public function __construct() {
-	    register_activation_hook( __FILE__, [ $this, 'on_active' ] );
+        register_activation_hook( __FILE__, [ $this, 'on_active' ] );
         register_deactivation_hook( __FILE__, array( $this , 'on_deactivation' ) );
-	    add_action( 'admin_notices', array( $this, 'check_wc_activation' ) );
-        $this->includes();
+	    $this->includes();
     }
 
     public function on_active() {
@@ -100,29 +94,13 @@ class WAUC {
     	Schedules::instance()->clear_schedules();
     }
 
-	/**
-	 * If WC is not active
-	 * admin notice will appear
-	 * to active it
-	 */
-	function check_wc_activation(){
-		if( !class_exists('WooCommerce')):
-			?>
-			<div class="notice notice-warning">
-				<p><?php _e( 'It seem\'s WooCommerce is not activated ! Please activate it to have WooCommerce Auction working !', 'sample-text-domain' ); ?></p>
-			</div>
-			<?php
-		endif;
-	}
-
     public function includes() {
 	    require_once 'vendor/autoload.php';
 	    Application::bootWp();
-	    Ajax_Actions::instance();
-	    Auction_Admin::instance();
-	    Auction_Product_Front::instance();
-	    Auction_Report::instance();
-	    News::instance();
+
+        foreach ( glob( WAUC_ROOT . '/inc/*.php') as $k => $filename ) {
+            include_once $filename;
+        }
     }
 }
 
