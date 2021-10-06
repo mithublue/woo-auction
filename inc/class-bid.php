@@ -1,7 +1,6 @@
 <?php
-namespace wauc\core;
 
-class Bid{
+class WAUC_Bid {
 
     /**
      * Instance

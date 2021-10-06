@@ -1,7 +1,6 @@
 <?php
-namespace wauc\instance;
 
-class Bidder{
+class WAUC_Bidder {
 
     /**
      * Instance
