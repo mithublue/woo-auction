@@ -13,22 +13,37 @@
  */
 
 
+namespace wauc;
+
+use As247\WpEloquent\Application;
+use wauc\core\Schedules;
+use wauc\migrations\Migrator;
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-if( !function_exists( 'pri' ) ) {
-    function pri( $data ) {
-        echo '<pre>';print_r( $data );echo '</pre>';
-    }
+if ( !function_exists( 'pri' ) ) {
+	function pri( $data ) {
+		echo '<pre>';print_r($data);echo '</pre>';
+	}
 }
+
+
+spl_autoload_register(function ($class_name) {
+	$file = strtolower( str_replace( ['\\','_'], ['/','-'], $class_name ) ).'.php';
+	$file = str_replace('wauc', '', $file);
+	if ( file_exists( __DIR__ . '/' . $file ) ) {
+		include_once __DIR__ . '/' . $file;
+	}
+});
 
 define( 'WAUC_ROOT', dirname(__FILE__));
 define( 'WAUC_ASSET_URL', plugins_url( 'assets', __FILE__ ) );
 define( 'WAUC_PRODUCTION', true );
 define( 'WAUC_BASE_FILE', __FILE__ );
 
-class WAUC_Init {
+class WAUC {
 
     /**
      * Instance
@@ -64,24 +79,24 @@ class WAUC_Init {
     public function __construct() {
         register_activation_hook( __FILE__, [ $this, 'on_active' ] );
         register_deactivation_hook( __FILE__, array( $this , 'on_deactivation' ) );
-        $this->includes();
+	    $this->includes();
     }
 
     public function on_active() {
-        include_once "inc/class-db.php";
-        WAUC_DB()->install_tables();
-        WAUC_Schedule()->init_schedules();
+    	Migrator::instance()->run();
+        Schedules::instance()->init_schedules();
     }
 
     /**
      * Run plugin deactivation
      */
-    public static function deactivation(){
-        WAUC_Schedule()->clear_schedules();
+    public static function on_deactivation(){
+    	Schedules::instance()->clear_schedules();
     }
 
     public function includes() {
-        require_once 'vendor/autoload.php';
+	    require_once 'vendor/autoload.php';
+	    Application::bootWp();
 
         foreach ( glob( WAUC_ROOT . '/inc/*.php') as $k => $filename ) {
             include_once $filename;
@@ -89,4 +104,8 @@ class WAUC_Init {
     }
 }
 
-WAUC_Init::instance();
+WAUC::instance();
+
+add_action('init',function (){
+	Migrator::instance()->run();
+});
