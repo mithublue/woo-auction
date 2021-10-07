@@ -1,6 +1,7 @@
 <?php
+namespace wauc\core;
 
-class WAUC_Bidder {
+class Admin_Menu{
 
     /**
      * Instance

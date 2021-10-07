@@ -1,6 +1,7 @@
 <?php
+namespace wauc\instance;
 
-class WAUC_Notification {
+class Bidder{
 
     /**
      * Instance
@@ -37,9 +38,3 @@ class WAUC_Notification {
 
     }
 }
-
-function WAUC_Notification() {
-    return WAUC_Notification::instance();
-}
-
-WAUC_Notification();

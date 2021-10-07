@@ -1,6 +1,7 @@
 <?php
+namespace wauc\core;
 
-class WAUC_Admin_Menu {
+class Auction_Report{
 
     /**
      * Instance
@@ -37,9 +38,3 @@ class WAUC_Admin_Menu {
 
     }
 }
-
-function WAUC_Admin_Menu() {
-    return WAUC_Admin_Menu::instance();
-}
-
-WAUC_Admin_Menu();

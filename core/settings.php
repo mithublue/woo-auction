@@ -1,6 +1,7 @@
 <?php
+namespace wauc\core;
 
-class WAUC_Settings {
+class Settings{
 
     /**
      * Instance
@@ -37,9 +38,3 @@ class WAUC_Settings {
 
     }
 }
-
-function WAUC_Settings () {
-    return WAUC_Settings::instance();
-}
-
-WAUC_Settings();

@@ -16,6 +16,7 @@
 namespace wauc;
 
 use As247\WpEloquent\Application;
+use wauc\core\Product;
 use wauc\core\Schedules;
 use wauc\migrations\Migrator;
 
@@ -97,10 +98,7 @@ class WAUC {
     public function includes() {
 	    require_once 'vendor/autoload.php';
 	    Application::bootWp();
-
-        foreach ( glob( WAUC_ROOT . '/inc/*.php') as $k => $filename ) {
-            include_once $filename;
-        }
+	    Product::instance();
     }
 }
 

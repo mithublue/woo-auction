@@ -1,6 +1,7 @@
 <?php
+namespace wauc\core;
 
-class WAUC_Bid {
+class Notification{
 
     /**
      * Instance
