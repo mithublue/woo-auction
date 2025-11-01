@@ -21,6 +21,13 @@ Crafted by the CyberCraft engineering team, Woo Live Auctions gives merchants a 
 * **Watchlists, buy now, reserve pricing,** and a responsive bid history scroller.
 * **Targeted email messaging** for winners, outbid notices, ending-soon alerts, and proxy wars.
 * **Admin intelligence** with cron health checks, analytics hooks, and premium UI states.
+* **Live countdown elements** with second-by-second urgency designed for conversions.
+* **Bid history insights** that surface manual versus proxy bids at a glance.
+* **Role-aware permissions** so you can gate proxy or guest bidding with confidence.
+* **Template override support** letting designers craft on-brand auction layouts.
+* **Developer-first hooks** to integrate CRM, ERP, or analytics pipelines.
+* **Localization ready** with RTL support and translation-friendly strings.
+* **Performance tuned** queries and caching layers to scale flash-sale auction events.
 
 == Why This Is More Than You Need ==
 Most auction plugins list products and walk away. Woo Live Auctions choreographs the full performance: freemium-safe messaging, monetization nudges for store owners, and reliability tooling that keeps every auction fair, fast, and flawless. Launch in minutes, delight bidders for months.

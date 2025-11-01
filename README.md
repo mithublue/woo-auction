@@ -13,6 +13,12 @@ Woo Live Auctions transforms any WooCommerce store into a broadcast-worthy aucti
 * **Bidder communication** – Targeted emails for outbid, ending soon, winners, proxy wars, and more.
 * **Premium UI everywhere** – Responsive layouts, bid history scroller, watchlists, and front-end buy now.
 * **Admin clarity** – Dashboard notices, analytics hooks, and manual override controls give you command.
+* **Reserve & buy-now controls** – Configure floor pricing and instant-purchase escape hatches per product.
+* **Granular permissions** – Align bidding privileges with WooCommerce roles and guest bidding settings.
+* **Template friendly** – Overrideable Twig-style templates and CSS hooks for brand-perfect experiences.
+* **Developer ready APIs** – Actions, filters, and webhooks to sync bids with ERPs, CRMs, or data warehouses.
+* **Localization prepared** – Translation-ready strings and RTL-aware layouts for global auctions.
+* **Performance minded** – Lean queries, caching layers, and queue-safe bidding to scale high-traffic events.
 
 ## Why This Is More Than You Need
 Most auction plugins stop at listing items. Woo Live Auctions choreographs the entire show: automated scheduling, intelligent notifications, unbiased freemium messaging, and monetization prompts for shop owners. You get 5-star velocity without a custom dev sprint.
