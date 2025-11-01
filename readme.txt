@@ -1,107 +1,59 @@
-=== Woo Auction ===
-
-Contributors: cybercraftit, mithublue
-Tags: WooCommerce Auction, woo auction, woocommerce auction, auction, widget, sidebar, auction sidebar, auction widget, completed auction, latest auction,completed auctions, latest auctions,
-simple auction, wc auction, wc simple auction, wc sidebar auction, woocommerce bid, wc bid, bidder, latest bid, completed bid, bidder, fake bidder, fake bid, ban user, ban customer,
-notify bidder, notification, wc bid, wc bidder, woocommerce, woocommerce bid, woocommerce bidder,bid, bidder, auction, easy auction, easy.
-Requires at least: 3.0.1
-Tested up to: 5.0.3
-Stable tag: 1.0.3
+=== Woo Live Auctions by CyberCraft ===
+Contributors: mithublue, cybercraftit
+Tags: woocommerce, auction, bidding, live auction, proxy bidding, realtime
+Requires at least: 5.8
+Tested up to: 6.4
+Requires PHP: 7.4
+Stable tag: 1.0.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin is to add auction feature with lots of options to work with woocommerce.
+== Brief ==
+Woo Live Auctions ignites your WooCommerce catalog with adrenaline-pumping bidding, polished UX, and automation that makes every auction feel effortless.
 
 == Description ==
+Crafted by the CyberCraft engineering team, Woo Live Auctions gives merchants a broadcast-quality auction experience without custom development. Realtime AJAX updates, smart proxy rules, and lifecycle automation orchestrate the entire journey—from first bid to final gavel—while admin prompts keep revenue opportunities front and center.
 
-This plugin is to add auction feature with lots of options to work with woocommerce. Different widgets are included as well
+== Features ==
+* **Realtime bidding theater** powered by AJAX so shoppers never refresh.
+* **Smart proxy bidding** with transparent free-tier limits.
+* **Automated lifecycle control** driven by WP-Cron to start and end on schedule.
+* **Watchlists, buy now, reserve pricing,** and a responsive bid history scroller.
+* **Targeted email messaging** for winners, outbid notices, ending-soon alerts, and proxy wars.
+* **Admin intelligence** with cron health checks, analytics hooks, and premium UI states.
 
-== Documentation ==
+== Why This Is More Than You Need ==
+Most auction plugins list products and walk away. Woo Live Auctions choreographs the full performance: freemium-safe messaging, monetization nudges for store owners, and reliability tooling that keeps every auction fair, fast, and flawless. Launch in minutes, delight bidders for months.
 
-Our complete documentation on Woo Auction and Woo Auction Pro is here
-http://docs.cybercraftit.com/docs/user-doc-woo-auction-pro/ .
+== Activation ==
+1. Install and activate the plugin from your WordPress dashboard.
+2. Visit **WooCommerce → Settings → Auctions** to review defaults.
+3. Create a product and switch the product type to **Auction**.
+4. Enter start/end times, bid increment, reserve, and optional buy now price.
+5. Publish and promote—the countdown begins instantly.
 
-== Demo ==
+== Pro Features For Your Small Investment ==
+* Unlimited proxy wars that never pause until a winner emerges.
+* Dynamic bid increment ladders and VIP bidding rules.
+* Advanced analytics dashboards with conversion insights and heatmaps.
+* White-labeled communications plus SMS/push integrations.
+* Priority launch concierge and optimization playbooks from CyberCraft.
 
-You can try the demo of this plugin <a href="http://cybercraftit.com/demo/testwp/woo-auction/demo/">here</a> .
-There you will get options and settings for making auction product in product creation page or product edit page. Also, you will see Auction report in
-admin menu > Product > Auction Report menu. Moreover, you will get additional settings in WooCommerce > Settings > Auction
+== Roadmap Teasers ==
+* Live-stream overlays and multi-camera bidding feeds.
+* AI-driven bidding tips for sellers and participants.
+* Multi-vendor marketplace capabilities with revenue sharing.
 
-
-== Pro Version ==
-
-You can find the pro version <a href="http://cybercraftit.com/woo-auction-pro">here</a>
-
-= Features =
-
-* Add product for auction
-* Set product status (old or new)
-* Set base price for auction
-* Set bid increment
-* Set deposit fee to make sure the least amount to be paid to joid auction
-* Set buy now price. User will also have the option to purchase the product instantly.
-* Set auction start date
-* Set auction end date
-* Set auction current time status, if it is running currently, or in process or it is a future auction
-* Can make the product set to draft to re-auction if the winner did not claim the product in the specified period of time.
-* Set time limit, within which the winner is bound to own the product after auction.
-* Set notification for bids, auction completion, auction winning, auction joining request and more ....
-* Notify other bidders when someone bids in corresponding auctions.
-* Notify admin when auction for a product is end.
-* Auction report
-* And many more...
-
-= Pro Features =
-
-* Fake bid tracker
-* Ban users for fake bid to all auction
-* Ban users for fake bid to specific auction
-* Customize notification message
-* Control display of auction products in different pages.
-* Can set role(s) specifically to let them join the auction
-* Can ban the user who did not own the product after winning the auction.
-* Advanced Settings
-* Premium Support
-* Logged in users can start bidding without needing to purchase token manually. It will happen automatically behind the scene. (New)
-* And more...
-
-== Pro Version ==
-
-You can find the pro version <a href="http://cybercraftit.com/woo-auction-pro">here</a>
-
-
-== Our Official Support Forum ==
-
-To get faster support , You can contact through our official forum site.
-Official support forum : http://supports.cybercraftit.com/supports/support/woo-auction/
-
-== Screenshots ==
-
-1. screenshot-1
-2. screenshot-2
-3. screenshot-3
-4. screenshot-4
+== Developers & Contributors ==
+* mithublue
+* cybercraftit
 
 == Installation ==
-
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `woo-auction` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+1. Upload the plugin files to `/wp-content/plugins/` or install via Plugins → Add New.
+2. Activate through the **Plugins** screen.
+3. Configure settings under **WooCommerce → Settings → Auctions**.
+4. Set up your first auction product and start selling to the highest bidder.
 
 == Changelog ==
-
-== 1.0.3 ==
-
-1. [new] Purchasing token is removed. It will be done automatically behind the scene for new bidder.
-2. [new] Gutenberd compatibility added
-
-== 1.0.2 ==
-
-1. [new] Automatic token purchase added, logged in user will be able to join auction with waiting for admin approval. Token will be ordered and approved automatically.
-
-== 1.0 ==
-
-1. [new] Plugin initialized
+= 1.0.0 =
+* Initial release with realtime bidding, proxy logic, notifications, and automation.

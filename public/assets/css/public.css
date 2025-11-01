@@ -1,0 +1,551 @@
+/**
+ * Woo Live Auctions - Public Styles
+ *
+ * @package    Woo_Live_Auctions
+ * @subpackage Woo_Live_Auctions/public/assets/css
+ * @since      1.0.0
+ */
+
+/* ========================================
+   Auction Badge
+   ======================================== */
+.woo-auction-badge {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background-color: #e74c3c;
+	color: #ffffff;
+	padding: 5px 12px;
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+	border-radius: 3px;
+	z-index: 10;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.woo-auction-badge-live {
+	background-color: #2ecc71;
+	animation: pulse 2s infinite;
+}
+
+.woo-auction-badge-future {
+	background-color: #3498db;
+}
+
+.woo-auction-badge-ended {
+	background-color: #95a5a6;
+}
+
+@keyframes pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.7; }
+}
+
+/* ========================================
+   Loop Display
+   ======================================== */
+.woo-auction-price {
+	display: block;
+	margin: 10px 0;
+}
+
+.woo-auction-price .label {
+	display: block;
+	font-size: 12px;
+	color: #666;
+	margin-bottom: 3px;
+}
+
+.woo-auction-price.woo-auction-live {
+	color: #2ecc71;
+	font-weight: 600;
+}
+
+.woo-auction-price.woo-auction-ended {
+	color: #95a5a6;
+}
+
+.woo-auction-countdown-loop {
+	font-size: 13px;
+	color: #e74c3c;
+	margin-top: 8px;
+}
+
+.woo-auction-countdown-loop .countdown-label {
+	font-weight: 600;
+}
+
+/* ========================================
+   Bidding Box
+   ======================================== */
+.woo-auction-bidding-box {
+	background: #f8f9fa;
+	border: 2px solid #dee2e6;
+	border-radius: 8px;
+	padding: 25px;
+	margin: 20px 0;
+}
+
+.woo-auction-current-bid {
+	text-align: center;
+	margin-bottom: 20px;
+	padding: 20px;
+	background: #ffffff;
+	border-radius: 6px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.current-bid-label {
+	font-size: 14px;
+	color: #666;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-bottom: 8px;
+}
+
+.current-bid-amount {
+	font-size: 36px;
+	font-weight: 700;
+	color: #2ecc71;
+	margin: 10px 0;
+}
+
+.bid-count {
+	font-size: 13px;
+	color: #999;
+}
+
+/* ========================================
+   Countdown Timer
+   ======================================== */
+.woo-auction-countdown {
+	text-align: center;
+	padding: 15px;
+	background: #fff3cd;
+	border-radius: 6px;
+	margin-bottom: 20px;
+}
+
+.countdown-label {
+	display: block;
+	font-size: 13px;
+	color: #856404;
+	margin-bottom: 5px;
+	font-weight: 600;
+}
+
+.countdown-timer {
+	font-size: 24px;
+	font-weight: 700;
+	color: #e74c3c;
+	font-family: 'Courier New', monospace;
+}
+
+/* ========================================
+   User Status
+   ======================================== */
+.woo-auction-user-status {
+	padding: 12px 15px;
+	border-radius: 6px;
+	margin-bottom: 15px;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.woo-auction-user-status.winning {
+	background: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+
+.woo-auction-user-status.outbid {
+	background: #f8d7da;
+	color: #721c24;
+	border: 1px solid #f5c6cb;
+}
+
+.woo-auction-proxy-status {
+	padding: 10px 15px;
+	background: #d1ecf1;
+	border: 1px solid #bee5eb;
+	border-radius: 6px;
+	margin-bottom: 15px;
+	font-size: 14px;
+	color: #0c5460;
+}
+
+/* ========================================
+   Bid Forms
+   ======================================== */
+.woo-auction-bid-form,
+.woo-auction-proxy-form {
+	background: #ffffff;
+	padding: 20px;
+	border-radius: 6px;
+	margin-bottom: 15px;
+	border: 1px solid #dee2e6;
+}
+
+.woo-auction-bid-form h4,
+.woo-auction-proxy-form h4 {
+	margin-top: 0;
+	margin-bottom: 15px;
+	font-size: 16px;
+	color: #333;
+}
+
+.bid-input-wrapper,
+.proxy-input-wrapper {
+	margin-bottom: 15px;
+}
+
+.bid-input-wrapper label,
+.proxy-input-wrapper label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: #555;
+}
+
+.bid-input-group,
+.proxy-input-group {
+	display: flex;
+	align-items: center;
+	border: 2px solid #ced4da;
+	border-radius: 4px;
+	overflow: hidden;
+	background: #ffffff;
+}
+
+.bid-input-group:focus-within,
+.proxy-input-group:focus-within {
+	border-color: #3498db;
+	box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.currency-symbol {
+	padding: 0 12px;
+	background: #e9ecef;
+	font-weight: 600;
+	color: #495057;
+	display: flex;
+	align-items: center;
+}
+
+.woo-auction-bid-input,
+.woo-auction-proxy-input {
+	flex: 1;
+	border: none;
+	padding: 12px;
+	font-size: 16px;
+	outline: none;
+}
+
+.min-bid-notice {
+	font-size: 13px;
+	color: #666;
+	margin-top: 8px;
+	margin-bottom: 0;
+}
+
+.woo-auction-bid-button,
+.woo-auction-proxy-button {
+	width: 100%;
+	padding: 14px 20px;
+	font-size: 16px;
+	font-weight: 600;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.woo-auction-bid-button {
+	background: #3498db;
+	color: #ffffff;
+}
+
+.woo-auction-bid-button:hover {
+	background: #2980b9;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.woo-auction-proxy-button {
+	background: #9b59b6;
+	color: #ffffff;
+}
+
+.woo-auction-proxy-button:hover {
+	background: #8e44ad;
+}
+
+.woo-auction-bid-button:disabled,
+.woo-auction-proxy-button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* ========================================
+   Messages
+   ======================================== */
+.woo-auction-messages {
+	margin-top: 15px;
+}
+
+.woo-auction-message {
+	padding: 12px 15px;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+
+.woo-auction-message.success {
+	background: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+
+.woo-auction-message.error {
+	background: #f8d7da;
+	color: #721c24;
+	border: 1px solid #f5c6cb;
+}
+
+/* ========================================
+   Buy Now
+   ======================================== */
+.woo-auction-buy-now {
+	background: #fff;
+	padding: 20px;
+	border: 2px dashed #ffc107;
+	border-radius: 6px;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.buy-now-label {
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 8px;
+}
+
+.buy-now-price {
+	font-size: 28px;
+	font-weight: 700;
+	color: #f39c12;
+	margin: 10px 0;
+}
+
+.woo-auction-buy-now-button {
+	background: #f39c12;
+	color: #ffffff;
+	padding: 12px 30px;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.woo-auction-buy-now-button:hover {
+	background: #e67e22;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3);
+}
+
+/* ========================================
+   Watchlist
+   ======================================== */
+.woo-auction-watchlist {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.woo-auction-watchlist-button {
+	background: transparent;
+	border: 2px solid #3498db;
+	color: #3498db;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.woo-auction-watchlist-button:hover {
+	background: #3498db;
+	color: #ffffff;
+}
+
+.woo-auction-watchlist-button.watching {
+	background: #3498db;
+	color: #ffffff;
+}
+
+/* ========================================
+   Bid History
+   ======================================== */
+.woo-auction-bid-history {
+	margin: 30px 0;
+	padding: 25px;
+	background: #f8f9fa;
+	border-radius: 8px;
+}
+
+.woo-auction-bid-history h2 {
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-size: 22px;
+	color: #333;
+}
+
+.woo-auction-bid-history-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #ffffff;
+	border-radius: 6px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.woo-auction-bid-history-table thead {
+	background: #3498db;
+	color: #ffffff;
+}
+
+.woo-auction-bid-history-table th,
+.woo-auction-bid-history-table td {
+	padding: 12px 15px;
+	text-align: left;
+	border-bottom: 1px solid #dee2e6;
+}
+
+.woo-auction-bid-history-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.woo-auction-bid-history-table tbody tr:hover {
+	background: #f8f9fa;
+}
+
+.proxy-badge {
+	display: inline-block;
+	background: #9b59b6;
+	color: #ffffff;
+	font-size: 10px;
+	padding: 2px 6px;
+	border-radius: 3px;
+	margin-left: 5px;
+	text-transform: uppercase;
+}
+
+/* ========================================
+   Auction Info
+   ======================================== */
+.woo-auction-info {
+	margin: 15px 0;
+}
+
+.woo-auction-reserve-notice,
+.woo-auction-reserve-met {
+	padding: 12px 15px;
+	border-radius: 6px;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.woo-auction-reserve-notice {
+	background: #fff3cd;
+	color: #856404;
+	border: 1px solid #ffeeba;
+}
+
+.woo-auction-reserve-met {
+	background: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+
+.woo-auction-status-live {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 15px;
+	background: #d4edda;
+	color: #155724;
+	border-radius: 20px;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.status-indicator {
+	width: 10px;
+	height: 10px;
+	background: #2ecc71;
+	border-radius: 50%;
+	animation: pulse 2s infinite;
+}
+
+/* ========================================
+   Ended State
+   ======================================== */
+.woo-auction-ended-notice {
+	text-align: center;
+	padding: 30px;
+	background: #ffffff;
+	border-radius: 8px;
+}
+
+.woo-auction-ended-notice h3 {
+	margin-top: 0;
+	color: #95a5a6;
+}
+
+.winner-notice {
+	font-size: 18px;
+	color: #2ecc71;
+	font-weight: 600;
+	margin: 15px 0;
+}
+
+.winning-bid,
+.final-bid {
+	font-size: 16px;
+	color: #555;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (max-width: 768px) {
+	.woo-auction-bidding-box {
+		padding: 15px;
+	}
+
+	.current-bid-amount {
+		font-size: 28px;
+	}
+
+	.countdown-timer {
+		font-size: 20px;
+	}
+
+	.woo-auction-bid-history-table {
+		font-size: 14px;
+	}
+
+	.woo-auction-bid-history-table th,
+	.woo-auction-bid-history-table td {
+		padding: 8px 10px;
+	}
+}
