@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Woo Live Auctions by CyberCraft
- * Plugin URI: https://example.com/woo-live-auctions
+ * Plugin URI: https://cybercraftit.com/woo-live-auction-pro
  * Description: The fastest, most engaging bidding experience for WooCommerce. Real-time AJAX bidding with smart proxy bidding system.
- * Version: 2
+ * Version: 2.0
  * Author: Mithu A Quayium
- * Author URI: https://example.com
+ * Author URI: https://cybercraftit.com/
  * Text Domain: woo-live-auctions
  * Domain Path: /languages
  * Requires at least: 5.8
