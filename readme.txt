@@ -1,6 +1,6 @@
 === Woo Live Auctions by CyberCraft ===
 Contributors: mithublue, cybercraftit
-Tags: woocommerce, auction, bidding, live auction, proxy bidding, realtime
+Tags: woocommerce, auction, bidding, live auction, proxy bidding
 Requires at least: 5.8
 Tested up to: 6.4
 Requires PHP: 7.4
@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 == Brief ==
 Woo Live Auctions ignites your WooCommerce catalog with adrenaline-pumping bidding, polished UX, and automation that makes every auction feel effortless.
 
-== Description ==
+== Short Description ==
 Crafted by the CyberCraft engineering team, Woo Live Auctions gives merchants a broadcast-quality auction experience without custom development. Realtime AJAX updates, smart proxy rules, and lifecycle automation orchestrate the entire journey—from first bid to final gavel—while admin prompts keep revenue opportunities front and center.
 
 == Features ==

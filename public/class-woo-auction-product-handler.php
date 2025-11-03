@@ -38,8 +38,8 @@ class Woo_Auction_Product_Handler {
 	 * @since 1.0.0
 	 */
 	private function init_hooks() {
-		// Replace add to cart form with bidding box
-		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+		// Ensure add to cart is only replaced for auction products
+		add_action( 'woocommerce_before_single_product', array( $this, 'setup_single_product_hooks' ) );
 		add_action( 'woocommerce_single_product_summary', array( $this, 'display_auction_bidding_box' ), 30 );
 
 		// Add auction info after short description
@@ -47,6 +47,26 @@ class Woo_Auction_Product_Handler {
 
 		// Add bid history after product tabs
 		add_action( 'woocommerce_after_single_product_summary', array( $this, 'display_bid_history' ), 15 );
+	}
+
+	/**
+	 * Prepare single product hooks based on product type.
+	 *
+	 * @since 1.0.0
+	 */
+	public function setup_single_product_hooks() {
+		global $product;
+
+		if ( ! $product ) {
+			return;
+		}
+
+		if ( 'auction' === $product->get_type() ) {
+			remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+		} else {
+			// Make sure non-auction products retain the default add to cart button
+			add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+		}
 	}
 
 	/**
