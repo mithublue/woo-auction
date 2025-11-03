@@ -241,9 +241,12 @@ class Woo_Auction_Product_Panel {
 			return;
 		}
 
-		// Save auction dates
-		$start_date = isset( $_POST['_auction_start_date'] ) ? sanitize_text_field( wp_unslash( $_POST['_auction_start_date'] ) ) : '';
-		$end_date   = isset( $_POST['_auction_end_date'] ) ? sanitize_text_field( wp_unslash( $_POST['_auction_end_date'] ) ) : '';
+		// Save auction dates (normalize to site timezone)
+		$start_date_raw = isset( $_POST['_auction_start_date'] ) ? sanitize_text_field( wp_unslash( $_POST['_auction_start_date'] ) ) : '';
+		$end_date_raw   = isset( $_POST['_auction_end_date'] ) ? sanitize_text_field( wp_unslash( $_POST['_auction_end_date'] ) ) : '';
+
+		$start_date = $this->normalize_datetime_input( $start_date_raw );
+		$end_date   = $this->normalize_datetime_input( $end_date_raw );
 
 		update_post_meta( $post_id, '_auction_start_date', $start_date );
 		update_post_meta( $post_id, '_auction_end_date', $end_date );
@@ -262,10 +265,13 @@ class Woo_Auction_Product_Panel {
 		// Initialize auction status if new
 		$auction_status = get_post_meta( $post_id, '_auction_status', true );
 		if ( ! $auction_status ) {
-			$current_time = current_time( 'mysql' );
-			if ( $start_date && strtotime( $start_date ) > strtotime( $current_time ) ) {
+			$current_timestamp = current_time( 'timestamp' );
+			$start_timestamp   = $this->datetime_to_timestamp( $start_date );
+			$end_timestamp     = $this->datetime_to_timestamp( $end_date );
+
+			if ( $start_timestamp && $start_timestamp > $current_timestamp ) {
 				update_post_meta( $post_id, '_auction_status', 'future' );
-			} elseif ( $start_date && strtotime( $start_date ) <= strtotime( $current_time ) && $end_date && strtotime( $end_date ) > strtotime( $current_time ) ) {
+			} elseif ( $start_timestamp && $start_timestamp <= $current_timestamp && $end_timestamp && $end_timestamp > $current_timestamp ) {
 				update_post_meta( $post_id, '_auction_status', 'live' );
 			}
 		}
@@ -296,5 +302,80 @@ class Woo_Auction_Product_Panel {
 		$options['downloadable']['wrapper_class'] .= ' hide_if_auction';
 
 		return $options;
+	}
+
+	/**
+	 * Normalize datetime input to canonical MySQL format in site timezone.
+	 *
+	 * @since 1.0.0
+	 * @param string $datetime Raw datetime string from form.
+	 * @return string Normalized datetime string (Y-m-d H:i:s) or empty string.
+	 */
+	private function normalize_datetime_input( $datetime ) {
+		if ( empty( $datetime ) ) {
+			return '';
+		}
+
+		$datetime = trim( $datetime );
+
+		// Split out timezone offset if provided (e.g., +06:00)
+		$parts = preg_split( '/\s+/', $datetime );
+		$offset = null;
+
+		if ( count( $parts ) >= 2 ) {
+			// Check last token for offset pattern
+			$last = end( $parts );
+			if ( preg_match( '/^[+-]\d{2}:?\d{2}$/', $last ) ) {
+				$offset = $last;
+				array_pop( $parts );
+			}
+		}
+
+		$base_string = implode( ' ', $parts );
+
+		try {
+			if ( $offset ) {
+				$timezone = new DateTimeZone( $offset );
+			} else {
+				$timezone = function_exists( 'wp_timezone' ) ? wp_timezone() : new DateTimeZone( wp_timezone_string() );
+			}
+
+			$dt_site = new DateTime( $base_string, $timezone );
+			if ( ! $offset ) {
+				return $dt_site->format( 'Y-m-d H:i:s' );
+			}
+
+			$site_timezone = function_exists( 'wp_timezone' ) ? wp_timezone() : new DateTimeZone( wp_timezone_string() );
+			$dt_site->setTimezone( $site_timezone );
+			return $dt_site->format( 'Y-m-d H:i:s' );
+		} catch ( Exception $e ) {
+			// Fallback to strtotime interpretation
+			$timestamp = strtotime( $datetime );
+			if ( ! $timestamp ) {
+				return '';
+			}
+			return wp_date( 'Y-m-d H:i:s', $timestamp );
+		}
+	}
+
+	/**
+	 * Convert normalized datetime string to timestamp.
+	 *
+	 * @since 1.0.0
+	 * @param string $datetime Normalized datetime string.
+	 * @return int|false Timestamp or false on failure.
+	 */
+	private function datetime_to_timestamp( $datetime ) {
+		if ( empty( $datetime ) ) {
+			return false;
+		}
+
+		try {
+			$timezone = function_exists( 'wp_timezone' ) ? wp_timezone() : new DateTimeZone( wp_timezone_string() );
+			$dt = new DateTime( $datetime, $timezone );
+			return $dt->getTimestamp();
+		} catch ( Exception $e ) {
+			return strtotime( $datetime );
+		}
 	}
 }

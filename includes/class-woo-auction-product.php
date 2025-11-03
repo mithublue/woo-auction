@@ -203,7 +203,9 @@ class WC_Product_Auction extends WC_Product {
 	 */
 	public function has_auction_started() {
 		$start_date = $this->get_auction_start_date();
-		return $start_date && strtotime( $start_date ) <= current_time( 'timestamp' );
+		$start_timestamp = $this->get_auction_timestamp( $start_date );
+
+		return $start_timestamp && $start_timestamp <= current_time( 'timestamp' );
 	}
 
 	/**
@@ -214,7 +216,9 @@ class WC_Product_Auction extends WC_Product {
 	 */
 	public function is_auction_ended() {
 		$end_date = $this->get_auction_end_date();
-		return $end_date && strtotime( $end_date ) <= current_time( 'timestamp' );
+		$end_timestamp = $this->get_auction_timestamp( $end_date );
+
+		return $end_timestamp && $end_timestamp <= current_time( 'timestamp' );
 	}
 
 	/**
@@ -290,7 +294,12 @@ class WC_Product_Auction extends WC_Product {
 			return 0;
 		}
 		
-		$remaining = strtotime( $end_date ) - current_time( 'timestamp' );
+		$end_timestamp = $this->get_auction_timestamp( $end_date );
+		if ( ! $end_timestamp ) {
+			return 0;
+		}
+
+		$remaining = $end_timestamp - current_time( 'timestamp' );
 		return max( 0, $remaining );
 	}
 
@@ -374,6 +383,27 @@ class WC_Product_Auction extends WC_Product {
 		}
 		
 		return 'live';
+	}
+
+	/**
+	 * Convert an auction datetime string into a site-local timestamp.
+	 *
+	 * @since 1.0.0
+	 * @param string $datetime MySQL datetime string.
+	 * @return int|false Timestamp on success, false otherwise.
+	 */
+	private function get_auction_timestamp( $datetime ) {
+		if ( empty( $datetime ) ) {
+			return false;
+		}
+
+		try {
+			$timezone = function_exists( 'wp_timezone' ) ? wp_timezone() : new DateTimeZone( wp_timezone_string() );
+			$dt = new DateTime( $datetime, $timezone );
+			return $dt->getTimestamp();
+		} catch ( Exception $e ) {
+			return strtotime( $datetime );
+		}
 	}
 
 	/**
