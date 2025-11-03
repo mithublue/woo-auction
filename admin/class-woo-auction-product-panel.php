@@ -81,7 +81,7 @@ class Woo_Auction_Product_Panel {
 		<div id="auction_product_data" class="panel woocommerce_options_panel hidden">
 			<div class="options_group">
 				<h3><?php esc_html_e( 'Auction Dates', 'woo-live-auctions' ); ?></h3>
-				
+
 				<?php
 				woocommerce_wp_text_input(
 					array(
@@ -111,7 +111,7 @@ class Woo_Auction_Product_Panel {
 
 			<div class="options_group">
 				<h3><?php esc_html_e( 'Pricing', 'woo-live-auctions' ); ?></h3>
-				
+
 				<?php
 				woocommerce_wp_text_input(
 					array(
@@ -177,7 +177,7 @@ class Woo_Auction_Product_Panel {
 
 			<div class="options_group">
 				<h3><?php esc_html_e( 'Current Status', 'woo-live-auctions' ); ?></h3>
-				
+
 				<?php
 				$current_bid = get_post_meta( $post->ID, '_auction_current_bid', true );
 				$bid_count = get_post_meta( $post->ID, '_auction_bid_count', true );
@@ -214,7 +214,7 @@ class Woo_Auction_Product_Panel {
 					<?php
 					printf(
 						/* translators: %s: documentation URL */
-						wp_kses_post( __( 'Check out our <a href="#" target="_blank">documentation</a> for detailed instructions on setting up auctions.', 'woo-live-auctions' ) ),
+						wp_kses_post( __( 'Check out our <a href="https://cybercraftit.com/woo-live-auction-pro/" target="_new">documentation</a> for detailed instructions on setting up auctions.', 'woo-live-auctions' ) ),
 						'#'
 					);
 					?>

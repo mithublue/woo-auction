@@ -203,7 +203,7 @@ function woo_auction_plugin_row_meta( $links, $file ) {
 		),
 		'upgrade' => sprintf(
 			'<a href="%s" target="_blank" style="color: #46b450; font-weight: 700;">%s</a>',
-			esc_url( 'https://example.com/woo-live-auctions-pro' ),
+			esc_url( 'https://cybercraftit.com/woo-live-auction-pro/' ),
 			esc_html__( 'Upgrade to Pro', 'woo-live-auctions' )
 		),
 	);
