@@ -1,4 +1,4 @@
-=== Woo Live Auctions by CyberCraft ===
+=== Live Auctions for WooCommerce by CyberCraft ===
 Contributors: mithublue, cybercraftit
 Tags: woocommerce, auction, bidding, live auction, proxy bidding
 Requires at least: 5.8

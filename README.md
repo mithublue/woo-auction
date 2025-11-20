@@ -1,4 +1,4 @@
-# Woo Live Auctions by CyberCraft
+# Live Auctions for WooCommerce by CyberCraft
 
 ## Brief
 Woo Live Auctions supercharges WooCommerce with high-energy bidding that keeps shoppers glued to the page. Deliver real-time excitement, effortless auction management, and a premium experience out of the box.
